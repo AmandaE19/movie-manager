@@ -7,6 +7,24 @@ export const api = axios.create({
   }
 });
 
+type Movie = {
+  title: string;
+  originalTitle: string;
+  tagline: string;
+  description: string;
+  posterUrl: string;
+  releaseDate: string;
+  duration: string;
+  status: string;
+  language: string;
+  budget: string;
+  revenue: string;
+  popularity: string;
+  voteCount: string;
+  rating: string;
+  genres: string[];
+  trailerUrl: string;
+}
 
 export const login = async (email: string, password: string) => {
   try {
@@ -34,3 +52,12 @@ export const getAllMovies = async () => {
     alert(error.response?.data?.message || "Erro ao carregar filmes");
   }
 };
+
+export const createMovie = async (movieToSend: Movie ) => {
+  try {
+    const response = await api.post('/movies', movieToSend );
+    return response.data;
+  } catch (error: any) {
+    alert(error.response?.data?.message || "Erro ao criar usuário");
+  }
+}

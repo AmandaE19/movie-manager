@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  position: fixed;
+  transition: all ease 0.2s;
+  /* position: fixed; */
   bottom: 0px;
   width: 100%;
   padding: 24px;
@@ -21,7 +22,21 @@ export const Container = styled.div`
   z-index: 2;
 
   span {
-    font-weight: 600;
-    margin-left: 5px;
+    white-space: nowrap;
   }
+
+  @media (max-width: 600px) {
+    text-align: center;
+
+    span {
+      white-space: normal;
+    }
+  }
+`;
+
+export const CompanyName = styled.span`
+  font-weight: 600;
+  margin-left: 5px;
+  white-space: nowrap;
+  color: #B5B2BC;
 `;

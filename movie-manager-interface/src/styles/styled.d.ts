@@ -10,7 +10,13 @@ declare module "styled-components" {
 			purple: {
 				[key: number]: string;
 			};
+			purpleAlpha: {
+				[key: number]: string;
+			};
 			mauve: {
+				[key: number]: string;
+			};
+			mauveAlpha: {
 				[key: number]: string;
 			};
 			button?: {

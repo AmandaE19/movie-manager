@@ -66,7 +66,7 @@ const RegisterModal = ({
 
             <S.Buttons>
                 <span>
-                    <Link to="/"></Link>
+                    <Link to="/">Já possui conta? Acesse-a</Link>
                 </span>
                 <Button>Cadastrar</Button>
             </S.Buttons>

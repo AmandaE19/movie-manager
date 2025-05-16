@@ -2,6 +2,8 @@ import React from "react";
 import * as S from "./Input.styled";
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
+  width?: string;
+  height?: string;
   label?: string;
 };
 

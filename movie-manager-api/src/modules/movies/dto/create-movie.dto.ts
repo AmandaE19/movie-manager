@@ -1,4 +1,9 @@
-import { IsNotEmpty, IsOptional, IsDateString, IsInt, IsString, IsNumber } from "class-validator";
+import {
+	IsDateString,
+	IsNotEmpty,
+	IsOptional,
+	IsString,
+} from "class-validator";
 
 export class CreateMovieDto {
 	@IsNotEmpty()
@@ -11,25 +16,57 @@ export class CreateMovieDto {
 
 	@IsOptional()
 	@IsString()
+	tagline?: string;
+
+	@IsOptional()
+	@IsString()
 	description?: string;
 
 	@IsOptional()
-	@IsNumber()
-	budget?: number;
+	@IsString()
+	posterUrl?: string;
 
-	@IsNotEmpty()
+	@IsOptional()
 	@IsDateString()
 	releaseDate: string;
 
-	@IsNotEmpty()
-	@IsInt()
+	@IsOptional()
+	@IsString()
 	duration: number;
 
-	@IsNotEmpty()
+	@IsOptional()
 	@IsString()
-	genre: string;
+	status?: string;
 
-	@IsNotEmpty()
+	@IsOptional()
 	@IsString()
-	rating: string;
+	language?: string;
+
+	@IsOptional()
+	@IsString()
+	budget?: number;
+
+	@IsOptional()
+	@IsString()
+	revenue?: number;
+
+	@IsOptional()
+	@IsString()
+	popularity?: number;
+
+	@IsOptional()
+	@IsString()
+	voteCount?: number;
+
+	@IsOptional()
+	@IsString()
+	rating?: number;
+
+	@IsOptional()
+	@IsString()
+	genres?: string[];
+
+	@IsOptional()
+	@IsString()
+	trailerUrl?: string;
 }

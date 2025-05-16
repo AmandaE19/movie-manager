@@ -30,5 +30,6 @@ export const Buttons = styled.div`
     offset: 0%;
     text-decoration-thickness: 0%;
     color: #8E4EC6;
+    margin-right: 25px;
   }
 `;

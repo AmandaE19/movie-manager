@@ -39,7 +39,7 @@ const LoginModal = ({
 
             <S.Buttons>
                 <span>
-                    <Link to="/register">Esqueci minha senha</Link>
+                    <Link to="/criar-conta">Não tem conta? Cadastre-se</Link>
                 </span>
                 <Button>Entrar</Button>
             </S.Buttons>

@@ -15,7 +15,6 @@ export const Background = styled.div`
   left: 0;
   width: 100%;
   height: 860px;
-  z-index: 0;
   opacity: 0.4;
 
   background: 
@@ -28,10 +27,6 @@ export const Background = styled.div`
 
 export const MainContent = styled.main`
 	position: relative;
-	z-index: 1;
 	flex: 1;
 	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 2rem;
 `;

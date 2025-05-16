@@ -1,7 +1,12 @@
 import styled from "styled-components";
 
-export const InputWrapper = styled.div`
-  width: 100%;
+interface StyledInputProps {
+	width?: string;
+	height?: string;
+}
+
+export const InputWrapper = styled.div<StyledInputProps>`
+  width: ${({ width }) => width || '100%'};
   height: fit-content;
   gap: 8px;
 `;
@@ -16,15 +21,14 @@ export const Label = styled.label`
   color: ${({ theme }) => theme.text };
 `;
 
-export const Input = styled.input<{ hasText?: boolean }>`
-  width: 100%;
-  height: fit-content;
+export const Input = styled.input<StyledInputProps>`
+  width: ${({ width }) => width || '100%'};
+	height: ${({ height }) => height || 'fit-content'};
   min-height: 44px;
   border-radius: 4px;
   border: 1px solid ${({ theme }) => theme.colors.mauve[6]};
   background-color: ${({ theme }) => theme.colors.mauve[2]};
   text-indent: 10px;
-  margin-top: 8px;
   
   color: ${({ theme }) => theme.text};
   font-weight: 400;

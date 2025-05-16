@@ -2,13 +2,11 @@ import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { Navigate, useNavigate } from "react-router-dom";
 import { register } from "../../services/api";
-import * as S from "./Register.styled";
-
-import TopBar from "../../components/TopBar/TopBar";
-import Footer from "../../components/Footer/Footer";
 
 import RegisterModal from "../../components/RegisterModal/RegisterModal";
 import Layout from "../../components/Layout/Layout";
+
+import * as S from "./Register.styled";
 
 const Register = () => {
   const { isAuthenticated, setIsAuthenticated } = useAuth();
@@ -44,17 +42,19 @@ const Register = () => {
 
   return (
     <Layout>
-      <RegisterModal
-        handleSubmit={handleSubmit}
-        name={name}
-        setName={setName}
-        email={email}
-        setEmail={setEmail}
-        password={password}
-        setPassword={setPassword}
-        passwordConfirm={passwordConfirm}
-        setPasswordConfirm={setPasswordConfirm}
-      />
+      <S.Container>
+        <RegisterModal
+          handleSubmit={handleSubmit}
+          name={name}
+          setName={setName}
+          email={email}
+          setEmail={setEmail}
+          password={password}
+          setPassword={setPassword}
+          passwordConfirm={passwordConfirm}
+          setPasswordConfirm={setPasswordConfirm}
+        />
+      </S.Container>
     </Layout>
   );
 };

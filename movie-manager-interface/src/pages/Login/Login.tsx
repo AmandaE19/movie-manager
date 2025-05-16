@@ -6,13 +6,15 @@ import { login } from "../../services/api";
 import LoginModal from "../../components/LoginModal/LoginModal";
 import Layout from "../../components/Layout/Layout";
 
+import * as S from "./Login.styled";
+
 const Login = () => {
   const { isAuthenticated, setIsAuthenticated } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  if (isAuthenticated) return <Navigate to="/movies" replace />;
+  if (isAuthenticated) return <Navigate to="/pagina-inicial" replace />;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // impede recarregar a página
@@ -25,7 +27,7 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(response.user));
 
         setIsAuthenticated(true);
-        navigate("/movies");
+        navigate("/pagina-inicial");
       } else {
         alert("Falha no login: token não retornado");
       }
@@ -36,13 +38,15 @@ const Login = () => {
 
   return (
     <Layout>
-      <LoginModal
+      <S.Container>
+        <LoginModal
           handleSubmit={handleSubmit}
           email={email}
           setEmail={setEmail}
           password={password}
           setPassword={setPassword}
         />
+      </S.Container>
     </ Layout>
   );
 };

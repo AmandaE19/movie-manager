@@ -2,10 +2,11 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
-import MovieList from "../pages/MovieList";
-import ProtectedRoute from "./ProtectedRoute";
+import MovieList from "../pages/InitialPage/InitialPage";
+// import ProtectedRoute from "./ProtectedRoute";
 
 import { useAuth } from "../context/AuthContext";
+import MovieDetails from "../pages/MovieDetail/MovieDetail";
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
@@ -15,16 +16,28 @@ const AppRoutes = () => {
       <Route
         path="/"
         element={
-          isAuthenticated ? <Navigate to="/movies" replace /> : <Login />
+          isAuthenticated ? <Navigate to="/pagina-inicial" replace /> : <Login />
         }
       />
-      <Route path="/register" element={<Register />} />
-      <Route
-        path="/movies"
+      <Route path="/criar-conta"
         element={
-          <ProtectedRoute>
+          isAuthenticated ? <Navigate to="/pagina-inicial" replace /> : <Register />
+        }
+      />
+      <Route
+        path="/pagina-inicial"
+        element={
+          // <ProtectedRoute>
             <MovieList />
-          </ProtectedRoute>
+          // </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/detalhes/123"
+        element={
+          // <ProtectedRoute>
+            <MovieDetails />
+          // </ProtectedRoute>
         }
       />
       <Route path="*" element={<h1>404 - Página não encontrada</h1>} />
