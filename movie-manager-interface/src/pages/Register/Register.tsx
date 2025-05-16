@@ -8,6 +8,7 @@ import TopBar from "../../components/TopBar/TopBar";
 import Footer from "../../components/Footer/Footer";
 
 import RegisterModal from "../../components/RegisterModal/RegisterModal";
+import Layout from "../../components/Layout/Layout";
 
 const Register = () => {
   const { isAuthenticated, setIsAuthenticated } = useAuth();
@@ -42,24 +43,19 @@ const Register = () => {
   };
 
   return (
-    <S.Container>
-      <S.Background />
-      <TopBar />
-      <S.Content>
-        <RegisterModal
-          handleSubmit={handleSubmit}
-          name={name}
-          setName={setName}
-          email={email}
-          setEmail={setEmail}
-          password={password}
-          setPassword={setPassword}
-          passwordConfirm={passwordConfirm}
-          setPasswordConfirm={setPasswordConfirm}
-        />
-      </S.Content>
-      <Footer />
-    </S.Container>
+    <Layout>
+      <RegisterModal
+        handleSubmit={handleSubmit}
+        name={name}
+        setName={setName}
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+        passwordConfirm={passwordConfirm}
+        setPasswordConfirm={setPasswordConfirm}
+      />
+    </Layout>
   );
 };
 

@@ -2,12 +2,9 @@ import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { Navigate, useNavigate } from "react-router-dom";
 import { login } from "../../services/api";
-import * as S from "./Login.styled";
-
-import TopBar from "../../components/TopBar/TopBar";
-import Footer from "../../components/Footer/Footer";
 
 import LoginModal from "../../components/LoginModal/LoginModal";
+import Layout from "../../components/Layout/Layout";
 
 const Login = () => {
   const { isAuthenticated, setIsAuthenticated } = useAuth();
@@ -26,7 +23,6 @@ const Login = () => {
       if (response.access_token) {
         localStorage.setItem("token", response.access_token);
         localStorage.setItem("user", JSON.stringify(response.user));
-        // localStorage.setItem("isAuthenticated", "true");
 
         setIsAuthenticated(true);
         navigate("/movies");
@@ -39,20 +35,15 @@ const Login = () => {
   };
 
   return (
-    <S.Container>
-      <S.Background />
-      <TopBar />
-      <S.Content>
-        <LoginModal
+    <Layout>
+      <LoginModal
           handleSubmit={handleSubmit}
           email={email}
           setEmail={setEmail}
           password={password}
           setPassword={setPassword}
         />
-      </S.Content>
-      <Footer />
-    </S.Container>
+    </ Layout>
   );
 };
 
