@@ -1,9 +1,5 @@
 import styled from "styled-components";
-
-interface StyledInputProps {
-	width?: string;
-	height?: string;
-}
+import type { StyledInputProps } from "../../types/global";
 
 export const InputWrapper = styled.div<StyledInputProps>`
   width: ${({ width }) => width || '100%'};

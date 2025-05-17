@@ -2,14 +2,7 @@ import { Link } from "react-router-dom";
 import * as S from "./LoginModal.styled";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
-
-interface LoginModalProps {
-    handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-    email: string;
-    setEmail: React.Dispatch<React.SetStateAction<string>>;
-    password: string;
-    setPassword: React.Dispatch<React.SetStateAction<string>>;
-}
+import type { LoginModalProps } from "../../types/global";
 
 const LoginModal = ({
     handleSubmit,

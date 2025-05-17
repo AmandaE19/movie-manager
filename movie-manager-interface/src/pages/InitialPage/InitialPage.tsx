@@ -5,17 +5,9 @@ import { getAllMovies } from "../../services/api";
 import Layout from "../../components/Layout/Layout";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
-import Background from "../../assets/images/background.png";
 import { useNavigate } from "react-router-dom";
 import AddMovieDrawer from "../../components/AddMovieDrawer/AddMovieDrawer";
-
-interface Movie {
-  id: number;
-  title: string;
-  poster: string;
-  rating: number;
-  genre: string;
-}
+import type { Movie } from "../../types/global";
 
 const MovieList = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -59,15 +51,15 @@ const MovieList = () => {
         <S.Movies>
           {movies.length > 0 ?
             movies.map((movie) => (
-              <S.Card onClick={()=>navigate(`/detalhes/${movie.id}`)} imageBg={Background} key={movie.id}>
-                <S.MovieLoading percentage={(movie.rating)} className="hover-element">
+              <S.Card onClick={()=>navigate(`/detalhes/${movie.id}`)} imageBg={movie.posterUrl || ""} key={movie.id}>
+                <S.MovieLoading percentage={Number(movie.rating || 0)} className="hover-element">
                   <span>
                     {movie.rating}
                   </span>
                 </S.MovieLoading>
                 <S.Info>
                   <span className="title">{(movie.title).toUpperCase()}</span>
-                  <span className="genre hover-element">{movie.genre}</span>
+                  <span className="genre hover-element">{movie.genres}</span>
                 </S.Info>
               </S.Card>
             ))

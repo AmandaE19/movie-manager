@@ -1,11 +1,6 @@
 import React from "react";
 import * as S from "./Input.styled";
-
-type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  width?: string;
-  height?: string;
-  label?: string;
-};
+import type { InputProps } from "../../types/global";
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(({ label, ...rest }, ref) => {
   return (

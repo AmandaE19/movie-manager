@@ -3,11 +3,7 @@ import * as S from "./AddMovieDrawer.styled";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import { createMovie } from "../../services/api";
-
-interface AddMovieDrawerProps {
-	isOpen: boolean;
-	onClose: () => void;
-}
+import type { AddMovieDrawerProps } from "../../types/global";
 
 const AddMovieDrawer: React.FC<AddMovieDrawerProps> = ({ isOpen, onClose }) => {
    const [form, setForm] = useState({

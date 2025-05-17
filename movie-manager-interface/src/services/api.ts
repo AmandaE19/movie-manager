@@ -1,4 +1,5 @@
 import axios from 'axios';
+import type { Movie } from '../types/global';
 
 export const api = axios.create({
   baseURL: 'http://localhost:8080',
@@ -6,25 +7,6 @@ export const api = axios.create({
     Authorization: `Bearer ${localStorage.getItem("token")}`
   }
 });
-
-type Movie = {
-  title: string;
-  originalTitle: string;
-  tagline: string;
-  description: string;
-  posterUrl: string;
-  releaseDate: string;
-  duration: string;
-  status: string;
-  language: string;
-  budget: string;
-  revenue: string;
-  popularity: string;
-  voteCount: string;
-  rating: string;
-  genres: string;
-  trailerUrl: string;
-}
 
 export const login = async (email: string, password: string) => {
   try {

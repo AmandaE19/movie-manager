@@ -1,12 +1,5 @@
 import styled from "styled-components";
-
-interface CardProps {
-  imageBg: string;
-}
-
-interface RatingCircleProps {
-  percentage: number;
-}
+import type { CardProps, RatingCircleProps } from "../../types/global";
 
 export const Container = styled.div`
     height: fit-content;

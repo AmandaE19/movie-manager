@@ -8,26 +8,7 @@ import { useEffect, useState } from "react";
 
 import { useParams, useNavigate } from "react-router-dom";
 import { getOneMovies } from "../../services/api";
-
-interface Movie {
-  title: string;
-  originalTitle: string;
-  tagline: string;
-  posterUrl: string;
-  popularity: string;
-  voteCount: string;
-  rating: number;
-  description: string;
-  genres: string[];
-  releaseDate: string;
-  duration: string;
-  status: string;
-  language: string;
-  budget: string;
-  revenue: string;
-  profit: string;
-  trailerUrl: string;
-}
+import type { Movie } from "../../types/global";
 
 const MovieDetails = () => {
   const { id } = useParams();

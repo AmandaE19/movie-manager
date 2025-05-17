@@ -2,18 +2,7 @@ import { Link } from "react-router-dom";
 import * as S from "./RegisterModal.styled";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
-
-interface RegisterModalProps {
-    handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-    name: string;
-    setName: React.Dispatch<React.SetStateAction<string>>;
-    email: string;
-    setEmail: React.Dispatch<React.SetStateAction<string>>;
-    password: string;
-    setPassword: React.Dispatch<React.SetStateAction<string>>;
-    passwordConfirm: string;
-    setPasswordConfirm: React.Dispatch<React.SetStateAction<string>>;
-}
+import type { RegisterModalProps } from "../../types/global";
 
 const RegisterModal = ({
     handleSubmit,

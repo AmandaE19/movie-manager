@@ -1,8 +1,5 @@
 import styled from "styled-components";
-
-interface RatingCircleProps {
-  percentage: number;
-}
+import type { RatingCircleProps } from "../../types/global";
 
 export const Container = styled.main`
   width: 100%;

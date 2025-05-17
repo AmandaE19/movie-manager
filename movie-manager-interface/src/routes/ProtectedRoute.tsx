@@ -1,10 +1,6 @@
-import { type JSX } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-
-interface ProtectedRouteProps {
-  children: JSX.Element;
-}
+import type { ProtectedRouteProps } from "../types/global";
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const { isAuthenticated } = useAuth()

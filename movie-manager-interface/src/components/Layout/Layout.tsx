@@ -1,10 +1,7 @@
 import TopBar from "../TopBar/TopBar";
 import Footer from "../Footer/Footer";
 import * as S from "./Layout.styled";
-
-interface LayoutProps {
-	children: any;
-}
+import type { LayoutProps } from "../../types/global";
 
 const Layout = ({ children }: LayoutProps) => {
 	return (
