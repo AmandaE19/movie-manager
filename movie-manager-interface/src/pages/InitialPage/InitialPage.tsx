@@ -57,123 +57,12 @@ const MovieList = () => {
           </div>
         </S.FiltersBar>
         <S.Movies>
-          {/* <S.Card onClick={()=>navigate("/detalhes/123")} imageBg={Background}>
-            <S.MovieLoading className="hover-element">
-              <span>
-                11 %
-              </span>
-            </S.MovieLoading>
-            <S.Info>
-              <span className="title">TITULO</span>
-              <span className="genre hover-element">Ação, aventura, drama</span>
-            </S.Info>
-          </S.Card>
-
-          <S.Card imageBg={Background}>
-            <S.MovieLoading className="hover-element">
-              <span>
-                11 %
-              </span>
-            </S.MovieLoading>
-            <S.Info>
-              <span className="title">TITULO</span>
-              <span className="genre hover-element">Ação, aventura, drama</span>
-            </S.Info>
-          </S.Card>
-          <S.Card imageBg={Background}>
-            <S.MovieLoading className="hover-element">
-              <span>
-                11 %
-              </span>
-            </S.MovieLoading>
-            <S.Info>
-              <span className="title">TITULO</span>
-              <span className="genre hover-element">Ação, aventura, drama</span>
-            </S.Info>
-          </S.Card>
-          <S.Card imageBg={Background}>
-            <S.MovieLoading className="hover-element">
-              <span>
-                11 %
-              </span>
-            </S.MovieLoading>
-            <S.Info>
-              <span className="title">TITULO</span>
-              <span className="genre hover-element">Ação, aventura, drama</span>
-            </S.Info>
-          </S.Card>
-          <S.Card imageBg={Background}>
-            <S.MovieLoading className="hover-element">
-              <span>
-                11 %
-              </span>
-            </S.MovieLoading>
-            <S.Info>
-              <span className="title">TITULO</span>
-              <span className="genre hover-element">Ação, aventura, drama</span>
-            </S.Info>
-          </S.Card>
-          <S.Card imageBg={Background}>
-            <S.MovieLoading className="hover-element">
-              <span>
-                11 %
-              </span>
-            </S.MovieLoading>
-            <S.Info>
-              <span className="title">TITULO</span>
-              <span className="genre hover-element">Ação, aventura, drama</span>
-            </S.Info>
-          </S.Card>
-          <S.Card imageBg={Background}>
-            <S.MovieLoading className="hover-element">
-              <span>
-                11 %
-              </span>
-            </S.MovieLoading>
-            <S.Info>
-              <span className="title">TITULO</span>
-              <span className="genre hover-element">Ação, aventura, drama</span>
-            </S.Info>
-          </S.Card>
-          <S.Card imageBg={Background}>
-            <S.MovieLoading className="hover-element">
-              <span>
-                11 %
-              </span>
-            </S.MovieLoading>
-            <S.Info>
-              <span className="title">TITULO</span>
-              <span className="genre hover-element">Ação, aventura, drama</span>
-            </S.Info>
-          </S.Card>
-          <S.Card imageBg={Background}>
-            <S.MovieLoading className="hover-element">
-              <span>
-                11 %
-              </span>
-            </S.MovieLoading>
-            <S.Info>
-              <span className="title">TITULO</span>
-              <span className="genre hover-element">Ação, aventura, drama</span>
-            </S.Info>
-          </S.Card>
-          <S.Card imageBg={Background}>
-            <S.MovieLoading className="hover-element">
-              <span>
-                11 %
-              </span>
-            </S.MovieLoading>
-            <S.Info>
-              <span className="title">TITULO</span>
-              <span className="genre hover-element">Ação, aventura, drama</span>
-            </S.Info>
-          </S.Card> */}
           {movies.length > 0 ?
             movies.map((movie) => (
-              <S.Card onClick={()=>navigate("/detalhes/123")} imageBg={Background} key={movie.id}>
-                <S.MovieLoading className="hover-element">
+              <S.Card onClick={()=>navigate(`/detalhes/${movie.id}`)} imageBg={Background} key={movie.id}>
+                <S.MovieLoading percentage={(movie.rating)} className="hover-element">
                   <span>
-                    11 %
+                    {movie.rating}
                   </span>
                 </S.MovieLoading>
                 <S.Info>

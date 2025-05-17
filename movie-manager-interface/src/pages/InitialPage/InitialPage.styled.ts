@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
 interface CardProps {
-    imageBg: string;
+  imageBg: string;
+}
+
+interface RatingCircleProps {
+  percentage: number;
 }
 
 export const Container = styled.div`
@@ -142,7 +146,7 @@ export const Info = styled.div`
     }
 `;
 
-export const MovieLoading = styled.div`
+export const MovieLoading = styled.div<RatingCircleProps>`
     position: absolute;
     top: 45%;
     left: 50%;
@@ -150,18 +154,35 @@ export const MovieLoading = styled.div`
     width: 140px;
     height: 140px;
     border-radius: 50%;
-    border: 6px solid #FFE000;
-    background-color: #00000050;
+    background: ${({ percentage }) => `
+		conic-gradient(
+    #FFE000 ${percentage * 3.6}deg,
+		  #ffffff40 ${percentage * 3.6}deg
+		)
+	`};
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #FFE000;
     font-weight: 700;
     font-size: 24px;
 
+    &::after {
+		content: '';
+      position: relative;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: ${({ theme }) => theme.colors.mauve[3]};
+      backdrop-filter: blur(4px);
+      z-index: 19;
+    }
+
     span {
+        position: absolute;
         font-size: 24px;
         font-weight: 700;
+        color: #FFE000;
+        z-index: 20;
     }
 
     sup {

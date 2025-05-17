@@ -56,11 +56,9 @@ const AddMovieDrawer: React.FC<AddMovieDrawerProps> = ({ isOpen, onClose }) => {
     const handleSubmit = async () => {
 		const movieToSend = {
 			...form,
-			genres: form.genres.split(",").map(g => g.trim()),
 		};
-		const response = await createMovie(movieToSend);
-        console.log(response)
-		// onClose();
+		await createMovie(movieToSend);
+		onClose();
 	};
 
 	return (

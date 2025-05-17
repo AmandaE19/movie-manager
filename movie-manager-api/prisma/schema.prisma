@@ -22,16 +22,16 @@ model Movie {
   tagline        String?
   description    String?
   posterUrl      String?
-  releaseDate    DateTime
-  duration       Int
+  releaseDate    String?
+  duration       String?
   status         String?
   language       String?
-  budget         Float?
-  revenue        Float?
-  popularity     Float?
-  voteCount      Int?
-  rating         Float?
-  genres         String[]
+  budget         String?
+  revenue        String?
+  popularity     String?
+  voteCount      String?
+  rating         String?
+  genres         String?
   trailerUrl     String?
   userId         Int
   user           User        @relation(fields: [userId], references: [id])

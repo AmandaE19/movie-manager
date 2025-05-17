@@ -12,7 +12,7 @@ export class MoviesService {
       data: {
         ...dto,
         userId,
-        releaseDate: new Date(dto.releaseDate),
+        // releaseDate: dto.releaseDate,
       },
     });
   }
@@ -32,18 +32,18 @@ export class MoviesService {
   }
 
   async updateMovie(userId: number, movieId: number, dto: UpdateMovieDto) {
-    await this.findOne(userId, movieId); // garante que o filme exista e pertence ao user
+    await this.findOne(userId, movieId);
     return this.prisma.movie.update({
       where: { id: movieId },
       data: {
         ...dto,
-        releaseDate: dto.releaseDate ? new Date(dto.releaseDate) : undefined,
+        // releaseDate: dto.releaseDate ? new Date(dto.releaseDate) : undefined,
       },
     });
   }
 
   async removeMovie(userId: number, movieId: number) {
-    await this.findOne(userId, movieId); // garante que o filme exista e pertence ao user
+    await this.findOne(userId, movieId);
     return this.prisma.movie.delete({
       where: { id: movieId },
     });

@@ -22,7 +22,7 @@ type Movie = {
   popularity: string;
   voteCount: string;
   rating: string;
-  genres: string[];
+  genres: string;
   trailerUrl: string;
 }
 
@@ -53,11 +53,37 @@ export const getAllMovies = async () => {
   }
 };
 
+export const getOneMovies = async (movieId: string) => {
+  try {
+    const response = await api.get(`/movies/${movieId}`);
+    return response.data;
+  } catch (error: any) {
+    alert(error.response?.data?.message || "Filme não encontrado");
+  }
+};
+
 export const createMovie = async (movieToSend: Movie ) => {
   try {
     const response = await api.post('/movies', movieToSend );
     return response.data;
   } catch (error: any) {
     alert(error.response?.data?.message || "Erro ao criar usuário");
+  }
+}
+
+export const updateMovie = async (movieId: string, movieToSend: Movie ) => {
+  try {
+    const response = await api.patch(`/movies/${movieId}`, movieToSend );
+    return response.data;
+  } catch (error: any) {
+    alert(error.response?.data?.message || "Erro ao atualizar filme");
+  }
+}
+
+export const deleteMovie = async (movieId: string) => {
+  try {
+    await api.delete(`/movies/${movieId}`);
+  } catch(error: any) {
+    alert(error.response?.data?.message || "Erro ao excluir filme");
   }
 }

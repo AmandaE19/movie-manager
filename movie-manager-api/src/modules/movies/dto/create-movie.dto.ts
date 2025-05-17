@@ -32,7 +32,7 @@ export class CreateMovieDto {
 
 	@IsOptional()
 	@IsString()
-	duration: number;
+	duration: string;
 
 	@IsOptional()
 	@IsString()
@@ -44,27 +44,27 @@ export class CreateMovieDto {
 
 	@IsOptional()
 	@IsString()
-	budget?: number;
+	budget?: string;
 
 	@IsOptional()
 	@IsString()
-	revenue?: number;
+	revenue?: string;
 
 	@IsOptional()
 	@IsString()
-	popularity?: number;
+	popularity?: string;
 
 	@IsOptional()
 	@IsString()
-	voteCount?: number;
+	voteCount?: string;
 
 	@IsOptional()
 	@IsString()
-	rating?: number;
+	rating?: string;
 
 	@IsOptional()
 	@IsString()
-	genres?: string[];
+	genres?: string;
 
 	@IsOptional()
 	@IsString()

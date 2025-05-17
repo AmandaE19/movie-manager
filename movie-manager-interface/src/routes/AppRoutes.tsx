@@ -33,7 +33,7 @@ const AppRoutes = () => {
         }
       />
       <Route
-        path="/detalhes/123"
+        path="/detalhes/:id"
         element={
           // <ProtectedRoute>
             <MovieDetails />
