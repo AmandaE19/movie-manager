@@ -171,12 +171,24 @@ export const MovieLoading = styled.div<RatingCircleProps>`
     }
 
     span {
-        position: absolute;
-        font-size: 24px;
-        font-weight: 700;
-        color: #FFE000;
-        z-index: 20;
-    }
+    position: absolute;
+    font-weight: 700;
+    font-size: 24px;
+    text-align: center;
+    color: #FFE000;
+    z-index: 20;
+  }
+
+  span:first-child {
+		font-size: 20px;
+		color: #FFE000;
+	}
+
+	span .percentage {
+		font-size: 12px;
+		color: #FFFFFF;
+    transform: translateY(7px) 
+	}
 
     sup {
         font-size: 14px;

@@ -20,9 +20,24 @@ export type Movie = {
     trailerUrl: string;
 }
 
-export interface AddMovieDrawerProps {
+export interface MovieDrawerProps {
     isOpen: boolean;
     onClose: () => void;
+    movie?: Movie;
+}
+
+export interface FilterProps {
+    isOpen: boolean;
+    onClose: () => void;
+    initialDate: string;
+    setInitialDate: React.Dispatch<React.SetStateAction<string>>;
+    finalDate: string;
+    setFinalDate: React.Dispatch<React.SetStateAction<string>>;
+    filterValueDurantion: number;
+    setFilterValueDurantion: React.Dispatch<React.SetStateAction<number>>;
+    filterValueRating: number;
+    setFilterValueRating: React.Dispatch<React.SetStateAction<number>>;
+    handleFilter: () => void;
 }
 
 export interface StyledInputProps {

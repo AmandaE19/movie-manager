@@ -7,12 +7,18 @@ import Layout from "../../components/Layout/Layout";
 import { useEffect, useState } from "react";
 
 import { useParams, useNavigate } from "react-router-dom";
-import { getOneMovies } from "../../services/api";
+
+import { deleteMovie, getOneMovies } from "../../services/api";
 import type { Movie } from "../../types/global";
+import AddMovieDrawer from "../../components/MovieDrawer/MovieDrawer";
 
 const MovieDetails = () => {
   const { id } = useParams();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [movie, setMovie] = useState<Movie>();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getFunction = async () => {
@@ -26,21 +32,40 @@ const MovieDetails = () => {
     getFunction();
   }, [])
 
-  // console.log(movie)
+  const handleDelete = async () => {
+    if (movie && movie.id) {
+      await deleteMovie(movie?.id);
+      navigate("/pagina-inicial");
+    }
+  }
+
   return (
     <Layout>
+      <AddMovieDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} movie={movie} />
+      {isDeleteOpen &&
+        <S.DeleteContainer>
+          <S.ContentDeleteContainer>
+            Tem certeza que deseja excluir esse filme?
+            <div>
+              <Button variant="secondary" onClick={() => setIsDeleteOpen(false)}>Cancelar</Button>
+              <Button variant="primary" onClick={handleDelete}>Confirmar</Button>
+            </div>
+          </S.ContentDeleteContainer>
+        </S.DeleteContainer>
+      }
+
       <S.Container>
         {movie &&
           <>
-            <S.InfoSection>
+            <S.InfoSection imageBg={movie?.posterUrl}>
               <S.HeaderInfoSection>
                 <div>
                   <S.Title>{movie?.title || ""}</S.Title>
                   <S.Subtitle>{movie?.originalTitle || ""}</S.Subtitle>
                 </div>
                 <S.ButtonsRow>
-                  <Button variant="secondary">Deletar</Button>
-                  <Button variant="primary">Editar</Button>
+                  <Button variant="secondary" onClick={() => setIsDeleteOpen(true)}>Deletar</Button>
+                  <Button variant="primary" onClick={() => setIsDrawerOpen(true)}>Editar</Button>
                 </S.ButtonsRow>
               </S.HeaderInfoSection>
 
@@ -62,8 +87,8 @@ const MovieDetails = () => {
                         <S.TitleText>VOTOS</S.TitleText>
                         <S.InfoDescriptionText>{movie?.voteCount || ""}</S.InfoDescriptionText>
                       </S.ContainerInfo>
-                      <S.RatingCircle percentage={Number(movie?.rating) || 0}>
-                        <span>{movie?.rating || 0}<span className="percentage">%</span></span>
+                      <S.RatingCircle percentage={Number(movie?.rating || 0) * 10}>
+                        <span>{Number(movie?.rating || 0) * 10}<span className="percentage">%</span></span>
                       </S.RatingCircle>
                     </S.Info1>
                   </S.SectionHeader>
@@ -78,7 +103,11 @@ const MovieDetails = () => {
 
                       <S.ContainerInfo>
                         <S.TitleText>Generos</S.TitleText>
-                        <S.Genres>{movie?.genres || ""}</S.Genres>
+                        <S.Genres>
+                          {movie.genres.split(",").map((genre) => (
+                            <S.GenreInfo>{genre}</S.GenreInfo>
+                          ))}
+                        </S.Genres>
                       </S.ContainerInfo>
 
                     </S.Info2>
@@ -130,9 +159,9 @@ const MovieDetails = () => {
 
             {movie?.trailerUrl !== "" &&
               <S.TrailerWrapper>
-                Trailer
+                <span>Trailer</span>
                 <iframe
-                  src={movie?.trailerUrl || ""}
+                  src={`https://www.youtube.com/embed/${movie?.trailerUrl.split("?")[1].replace("v=", "")}` || ""}
                   title={`${movie?.title} trailer`}
                   frameBorder="0"
                   allowFullScreen

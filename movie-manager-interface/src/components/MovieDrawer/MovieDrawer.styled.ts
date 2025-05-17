@@ -6,7 +6,7 @@ export const Container = styled.div`
     left: 0;
     width: 100dvw;
     height: 100dvh;
-    z-index: 2;
+    z-index: 21;
 `;
 
 export const Overlay = styled.div`
@@ -16,7 +16,7 @@ export const Overlay = styled.div`
 	width: 100vw;
 	height: 100vh;
 	background-color: ${({ theme }) => theme.colors.mauve[11]}25;
-	z-index: 2;
+	z-index: 21;
 `;
 
 export const Drawer = styled.div`

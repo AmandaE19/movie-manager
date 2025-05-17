@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import * as S from "./AddMovieDrawer.styled";
+import * as S from "./MovieDrawer.styled";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
-import { createMovie } from "../../services/api";
-import type { AddMovieDrawerProps } from "../../types/global";
+import { createMovie, updateMovie } from "../../services/api";
+import type { MovieDrawerProps } from "../../types/global";
+import { formatDateToInput } from "../../utils/functions";
+import { useNavigate } from "react-router-dom";
 
-const AddMovieDrawer: React.FC<AddMovieDrawerProps> = ({ isOpen, onClose }) => {
-   const [form, setForm] = useState({
+const MovieDrawer: React.FC<MovieDrawerProps> = ({ isOpen, onClose, movie }) => {
+	const [form, setForm] = useState({
 		title: "",
 		originalTitle: "",
 		tagline: "",
@@ -23,9 +25,35 @@ const AddMovieDrawer: React.FC<AddMovieDrawerProps> = ({ isOpen, onClose }) => {
 		rating: "",
 		genres: "",
 		trailerUrl: "",
-	})
+	});
 
-    useEffect(() => {
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (isOpen && movie) {
+			console.log(movie.releaseDate)
+			setForm({
+				title: movie.title || "",
+				originalTitle: movie.originalTitle || "",
+				tagline: movie.tagline || "",
+				description: movie.description || "",
+				posterUrl: movie.posterUrl || "",
+				releaseDate:  movie.releaseDate ? formatDateToInput(new Date(movie.releaseDate)) : "",
+				duration: movie.duration || "",
+				status: movie.status || "",
+				language: movie.language || "",
+				budget: movie.budget || "",
+				revenue: movie.revenue || "",
+				popularity: movie.popularity || "",
+				voteCount: movie.voteCount || "",
+				rating: movie.rating || "",
+				genres: movie.genres || "",
+				trailerUrl: movie.trailerUrl || "",
+			});
+		}
+	}, [isOpen, movie]);
+
+	useEffect(() => {
 		if (isOpen) {
 			document.body.style.overflow = "hidden";
 		} else {
@@ -37,9 +65,9 @@ const AddMovieDrawer: React.FC<AddMovieDrawerProps> = ({ isOpen, onClose }) => {
 		};
 	}, [isOpen]);
 
-    if (!isOpen) return null;
+	if (!isOpen) return null;
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 		setForm(prev => ({
 			...prev,
@@ -49,12 +77,27 @@ const AddMovieDrawer: React.FC<AddMovieDrawerProps> = ({ isOpen, onClose }) => {
 		}));
 	};
 
-    const handleSubmit = async () => {
+	const handleSubmit = async () => {
 		const movieToSend = {
 			...form,
+			releaseDate: form.releaseDate || ""
 		};
-		await createMovie(movieToSend);
-		onClose();
+		console.log(movieToSend)
+		if(movie){
+			if(movie.id) {
+				const movieId = movie.id!;
+				await updateMovie(movieId, movieToSend);
+				onClose();
+				navigate("/pagina-inicial");
+				
+			}else {
+				alert("Ops! Algo deu errado!")
+			}
+		}else {
+			await createMovie(movieToSend);
+			onClose();
+			navigate("/pagina-inicial");
+		}
 	};
 
 	return (
@@ -62,16 +105,16 @@ const AddMovieDrawer: React.FC<AddMovieDrawerProps> = ({ isOpen, onClose }) => {
 			<S.Overlay onClick={onClose} />
 			<S.Drawer>
 				<S.Header>
-					<h2>Adicionar Filme</h2>
+					<h2>{movie ? "Editar Filme" : "Adicionar Filme"}</h2>
 					<button onClick={onClose}>×</button>
 				</S.Header>
 				<S.Form>
-                    <Input type="text" name="title" placeholder="Título" value={form.title} onChange={handleChange} />
+					<Input type="text" name="title" placeholder="Título" value={form.title} onChange={handleChange} />
 					<Input type="text" name="originalTitle" placeholder="Título Original" value={form.originalTitle} onChange={handleChange} />
 					<Input type="text" name="tagline" placeholder="Frase de impacto" value={form.tagline} onChange={handleChange} />
 					<Input type="text" name="description" placeholder="Descrição" value={form.description} onChange={handleChange} />
 					<Input type="text" name="posterUrl" placeholder="URL do Poster" value={form.posterUrl} onChange={handleChange} />
-                    <Input type="date" name="releaseDate" placeholder="Data de Lançamento" value={form.releaseDate} onChange={handleChange} />
+					<Input type="date" name="releaseDate" placeholder="Data de Lançamento" value={form.releaseDate} onChange={handleChange} required />
 					<Input type="text" name="duration" placeholder="Duração (min)" value={form.duration} onChange={handleChange} />
 					<Input type="text" name="status" placeholder="Status (ex: Lançado)" value={form.status} onChange={handleChange} />
 					<Input type="text" name="language" placeholder="Idioma" value={form.language} onChange={handleChange} />
@@ -84,12 +127,12 @@ const AddMovieDrawer: React.FC<AddMovieDrawerProps> = ({ isOpen, onClose }) => {
 					<Input type="text" name="trailerUrl" placeholder="URL do trailer" value={form.trailerUrl} onChange={handleChange} />
 				</S.Form>
 				<S.Footer>
-                    <Button onClick={onClose} variant="secondary">Cancelar</Button>
-                    <Button onClick={handleSubmit} variant="primary">Adicionar Filme</Button>
+					<Button onClick={onClose} variant="secondary">Cancelar</Button>
+					<Button onClick={handleSubmit} variant="primary">{movie ? "Editar Filme" : "Adicionar Filme"}</Button>
 				</S.Footer>
 			</S.Drawer>
 		</S.Container>
 	);
 };
 
-export default AddMovieDrawer;
+export default MovieDrawer;

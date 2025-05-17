@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import type { RatingCircleProps } from "../../types/global";
+import type { CardProps, RatingCircleProps } from "../../types/global";
 
 export const Container = styled.main`
   width: 100%;
@@ -23,7 +23,13 @@ export const Container = styled.main`
   }
 `;
 
-export const InfoSection = styled.div`
+export const InfoSection = styled.div<CardProps>`
+  background: 
+    linear-gradient(to bottom, #121113, #12111346, #121113),
+    ${({ imageBg }) => `url(${imageBg})`};
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   width: 100%;
   height: fit-content;
   padding: 32px;
@@ -36,6 +42,8 @@ export const InfoSection = styled.div`
     transition: all ease 0.2s;
     display: flex;
     align-items: center;
+
+    background: none;
   }
 
   @media (max-width: 540px) {
@@ -155,7 +163,7 @@ export const RatingCircle = styled.div<RatingCircleProps>`
 	span .percentage {
 		font-size: 12px;
 		color: #FFFFFF;
-    
+    transform: translateY(7px);
 	}
 
   @media (max-width: 900px) {
@@ -303,10 +311,23 @@ export const InfoDescriptionText = styled.span`
 `;
 
 export const Genres = styled.div`
-  margin-top: 12px;
   display: flex;
+  width: fit-content;
   gap: 8px;
-  background: #5a2dbd;
+
+  @media (max-width: 900px) {
+    width: 100%;
+    transition: all ease 0.2s;
+  }
+`;
+
+export const GenreInfo = styled.div`
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  border-radius: 2px;
+  padding: 8px;
+  background: #C150FF18;
 
   span {
     padding: 4px 10px;
@@ -316,7 +337,7 @@ export const Genres = styled.div`
   }
 
   @media (max-width: 900px) {
-    width: 100%;
+    padding: 16px;
     transition: all ease 0.2s;
   }
 `;
@@ -392,5 +413,42 @@ export const TrailerWrapper = styled.div`
     width: 100%;
     height: 450px;
     border-radius: 8px;
+  }
+
+  span {
+    font-size: 24px;
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif;
+    line-height: 100%;
+    letter-spacing: 0px;
+  }
+`;
+
+// Modal de Confirmação de Exclusão
+export const DeleteContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${({ theme }) => theme.colors.mauve[11]}25;
+  z-index: 21;
+`;
+
+export const ContentDeleteContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: ${({ theme }) => theme.colors.mauve[3]};
+  width: fit-content;
+  height: fit-content;
+  padding: 32px;
+  border-radius: 4px;
+  color: ${({ theme }) => theme.text};
+
+  div {
+    display: flex;
+    justify-content: space-between;
   }
 `;

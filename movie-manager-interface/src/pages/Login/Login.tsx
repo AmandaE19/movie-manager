@@ -17,7 +17,7 @@ const Login = () => {
   if (isAuthenticated) return <Navigate to="/pagina-inicial" replace />;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // impede recarregar a página
+    e.preventDefault();
 
     try {
       const response = await login(email, password);
