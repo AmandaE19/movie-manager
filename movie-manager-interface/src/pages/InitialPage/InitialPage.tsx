@@ -74,7 +74,6 @@ const MovieList = () => {
   };
 
   const handleFilter = () => {
-    console.log(initialDate, finalDate, filterValueDurantion, filterValueRating);
     setCurrentPage(1);
     setIsFilterOpen(false);
   }
@@ -113,7 +112,10 @@ const MovieList = () => {
             />
           </div>
           <div className="buttons-container">
-            <Button variant="secondary" onClick={() => setIsFilterOpen(true)}>Filtros</Button>
+            <Button
+              variant="secondary"
+              onClick={() => setIsFilterOpen(true)}
+            >Filtros</Button>
             <Button variant="primary" onClick={() => setIsDrawerOpen(true)}>Adicionar Filme</Button>
           </div>
         </S.FiltersBar>

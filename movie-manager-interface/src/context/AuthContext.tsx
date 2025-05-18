@@ -1,14 +1,12 @@
 import { createContext, useContext, useState } from "react";
 import type { AuthContextType, AuthProviderProps } from "../types/global";
 
-
-
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-
-
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return Boolean(localStorage.getItem("token"));
+  });
 
   return (
     <AuthContext.Provider

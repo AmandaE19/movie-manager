@@ -33,16 +33,17 @@ export const Button = styled.button<{ variant?: "primary" | "secondary" }>`
   font-size: 16px;
   line-height: 100%;
   letter-spacing: 0px;
-  
+
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
-  ${({ variant = "primary" }) =>
+  ${({ variant }) =>
     variant === "primary" &&
     css`
       background-color: ${({ theme }) => theme.colors.button?.primary[1]};
       color:${({ theme }) => theme.colors.button?.primary.text[1]};
+      border: none;
 
       &:hover {
         background-color: ${({ theme }) => theme.colors.button?.primary[2]};
@@ -55,11 +56,11 @@ export const Button = styled.button<{ variant?: "primary" | "secondary" }>`
       }
     `}
 
-  ${({ variant = "primary" }) =>
+  ${({ variant }) =>
     variant === "secondary" &&
     css`
       background-color: ${({ theme }) => theme.colors.button?.secondary[1]};
-      color: ${({ theme }) => theme.colors.button?.secondary.text[1]};
+      color: ${({ theme }) => theme.colors.button?.secondary.text[1]};  
 
       &:hover {
         background-color: ${({ theme }) => theme.colors.button?.secondary[2]};

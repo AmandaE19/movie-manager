@@ -25,7 +25,7 @@ export const Container = styled.main`
 
 export const InfoSection = styled.div<CardProps>`
   background: 
-    linear-gradient(to bottom, #121113, #12111346, #121113),
+    linear-gradient(to bottom, ${({theme}) => theme.colors.mauve[1]}, ${({theme}) => theme.colors.mauve[1]}46, ${({theme}) => theme.colors.mauve[1]}),
     ${({ imageBg }) => `url(${imageBg})`};
   background-repeat: no-repeat;
   background-size: cover;
@@ -136,7 +136,7 @@ export const RatingCircle = styled.div<RatingCircleProps>`
 	position: relative;
 
 	&::after {
-		content: '';
+		content: "";
 		position: relative;
 		width: 86px;
 		height: 86px;
@@ -162,7 +162,7 @@ export const RatingCircle = styled.div<RatingCircleProps>`
 
 	span .percentage {
 		font-size: 12px;
-		color: #FFFFFF;
+		color: ${({theme}) => theme.text};
     transform: translateY(7px);
 	}
 
@@ -308,6 +308,13 @@ export const InfoDescriptionText = styled.span`
   font-weight: 600;
   font-size: 14px;
   color: ${({ theme }) => theme.colors.mauve[12]};
+
+  &.description {
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 0px;
+    line-height: 100%;
+  }
 `;
 
 export const Genres = styled.div`
@@ -327,7 +334,7 @@ export const GenreInfo = styled.div`
   height: fit-content;
   border-radius: 2px;
   padding: 8px;
-  background: #C150FF18;
+  background: ${({theme}) => theme.colors.purpleAlpha[3]};
 
   span {
     padding: 4px 10px;
@@ -398,13 +405,6 @@ export const ButtonsRow = styled.div`
   }
 `;
 
-export const Description = styled.p`
-  font-size: 0.95rem;
-  line-height: 1.4;
-  margin-top: 16px;
-  color: #ddd;
-`;
-
 export const TrailerWrapper = styled.div`
   width: 100%;
   padding: 32px;
@@ -428,7 +428,7 @@ export const TrailerWrapper = styled.div`
 export const DeleteContainer = styled.div`
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;

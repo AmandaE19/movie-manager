@@ -1,11 +1,10 @@
-// src/styles/theme.ts
 import type { DefaultTheme } from "styled-components";
 
 export const lightTheme: DefaultTheme = {
-	background: "#121113",
-	text: "#EEEEF0",
+	background: "#FDFCFD",
+	text: "#211F26",
 	primary: "#8E4EC6",
-	secondary: "#6F6D78",
+	secondary: "#8E8C99",
 
 	colors: {
 		purple: {
@@ -67,21 +66,21 @@ export const lightTheme: DefaultTheme = {
 		button: {
 			primary: {
 				1: "#8E4EC6",
-				2: "#9A5CD0",
-				3: "#8457AA",
-				4: "#6F6D78",
+				2: "#8347B9",
+				3: "#BE93E4",
+				4: "#8E8C99",
 				text: {
 					1: "#FFFFFF",
 					2: "#ECE9FD49",
 				} 
 			},
 			secondary: {
-				1: "#B744F708",
-				2: "#C150FF18",
-				3: "#B412F904",
-				4: "#EBEAF808",
+				1: "#B744F714",
+				2: "#C150FF2E",
+				3: "#B412F90A",
+				4: "#EBEAF814",
 				text: {
-					1: "#F1DDFF98",
+					1: "#250049DF",
 					2: "#ECE9FD49",
 				} 
 			}
@@ -160,17 +159,17 @@ export const darkTheme: DefaultTheme = {
 				4: "#6F6D78",
 				text: {
 					1: "#FFFFFF",
-					2: "#ECE9FD49",
+					2: "#ECE9FD7D",
 				} 
 			},
 			secondary: {
-				1: "#B744F708",
-				2: "#C150FF18",
-				3: "#B412F904",
-				4: "#EBEAF808",
+				1: "#B744F714",
+				2: "#C150FF2E",
+				3: "#B412F90A",
+				4: "#EBEAF814",
 				text: {
-					1: "#F1DDFF98",
-					2: "#ECE9FD49",
+					1: "#F1DDFFFA",
+					2: "#ECE9FD7D",
 				} 
 			}
 		}

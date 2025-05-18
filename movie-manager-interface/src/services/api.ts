@@ -1,25 +1,38 @@
-import axios from 'axios';
-import type { Movie } from '../types/global';
+import axios from "axios";
+import type { Movie } from "../types/global";
 
 export const api = axios.create({
-  baseURL: 'http://localhost:8080',
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("token")}`
+  baseURL: "http://localhost:8080",
+});
+
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+
+  if (config.url && (config.url.includes("/auth/login") || config.url.includes("/auth/register"))) {
+    return config;
   }
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+}, (error) => {
+  return Promise.reject(error);
 });
 
 export const login = async (email: string, password: string) => {
   try {
-    const response = await api.post('/auth/login', { email, password });
+    const response = await api.post("/auth/login", { email, password });
     return response.data;
   } catch (error: any) {
-    alert(error.response?.data?.message || 'Erro ao fazer login');
+    alert(error.response?.data?.message || "Erro ao fazer login");
   }
 };
 
 export const register = async (name: string, email: string, password: string) => {
   try {
-    const response = await api.post('/auth/register', { name, email, password });
+    const response = await api.post("/auth/register", { name, email, password });
     return response.data;
   } catch (error: any) {
     alert(error.response?.data?.message || "Erro ao criar usuário");
@@ -46,7 +59,7 @@ export const getOneMovies = async (movieId: string) => {
 
 export const createMovie = async (movieToSend: Movie ) => {
   try {
-    const response = await api.post('/movies', movieToSend );
+    const response = await api.post("/movies", movieToSend );
     return response.data;
   } catch (error: any) {
     alert(error.response?.data?.message || "Erro ao criar usuário");

@@ -1,19 +1,27 @@
 import * as S from "./TopBar.styled";
 
-import LogoCubos from "../../assets/images/cubos-logo.svg";
-import LogoCubosMobile from "../../assets/images/cubos-logo-mobile.svg";
+import LogoCubosDark from "../../assets/images/darkmode/cubos-logo-dark.svg";
+import LogoCubosMobileDark from "../../assets/images/darkmode/cubos-logo-mobile-dark.svg";
 
-import Sun from "../../assets/icons/Sun.svg";
-import Moon from "../../assets/icons/Moon.svg";
+import LogoCubosLight from "../../assets/images/lightmode/cubos-logo-light.svg";
+import LogoCubosMobileLight from "../../assets/images/lightmode/cubos-logo-mobile-light.svg";
+
+import SunDark from "../../assets/icons/darkmode/Sun.svg";
+import MoonLight from "../../assets/icons/lightmode/Moon.svg";
 
 import { useTheme } from "../../context/ThemeContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useAuth } from "../../context/AuthContext";
+import Button from "../Button/Button";
 
 const TopBar = () => {
+  const { setIsAuthenticated } = useAuth();
   const [isMobile, setIsMobile] = useState(false);
   const { isDark, toggleTheme } = useTheme();
+
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const checkWidth = () => setIsMobile(window.innerWidth < 600);
@@ -23,22 +31,29 @@ const TopBar = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.clear();
+    localStorage.removeItem("token");
+    setIsAuthenticated(false);
     navigate("/");
   };
 
   return (
     <S.Container>
       <S.Title>
-        <S.Logo src={isMobile ? LogoCubosMobile : LogoCubos} alt="Logo da Cubos" />
+        <S.Logo src={isMobile ? (isDark ? LogoCubosMobileDark : LogoCubosMobileLight) : (isDark ? LogoCubosDark : LogoCubosLight)} alt="Logo da Cubos" />
         <span>Movies</span>
       </S.Title>
 
       <S.Buttons>
-        <S.ThemeButton onClick={toggleTheme}>
-          {isDark ? <img src={Sun} alt="Ícone do sol" /> : <img src={Moon} alt="Ícone da lua" />}
-        </S.ThemeButton>
-        <S.LogoutButton onClick={handleLogout}>Logout</S.LogoutButton>
+        <Button
+          variant="secondary"
+          onClick={toggleTheme}
+        >
+          {isDark ? <img style={{ width: "18px" }} src={SunDark} alt="Ícone do sol" /> : <img style={{ width: "18px" }} src={MoonLight} alt="Ícone da lua" />}
+        </Button>
+        <Button
+          disabled={location.pathname === "/" || location.pathname === "/criar-conta"}
+          onClick={handleLogout}
+        >Logout</Button>
       </S.Buttons>
     </S.Container>
   );

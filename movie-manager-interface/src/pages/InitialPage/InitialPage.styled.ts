@@ -30,6 +30,9 @@ export const FiltersBar = styled.div`
 
   > div, button {
     justify-self: end;
+    > :first-child {
+      margin-right: 10px;
+    }
   }
 
   @media (max-width: 600px) {
@@ -109,6 +112,8 @@ export const Info = styled.div`
     flex-direction: column;
     justify-content: end;
     font-family: "Montserrat", sans-serif;
+    background: 
+      linear-gradient(to bottom, #CCCCCC00,  #000000A1, #000000);
 
     .title {
         width: 100%;
@@ -160,7 +165,7 @@ export const MovieLoading = styled.div<RatingCircleProps>`
     font-size: 24px;
 
     &::after {
-		content: '';
+		content: "";
       position: relative;
       width: 130px;
       height: 130px;
@@ -186,7 +191,7 @@ export const MovieLoading = styled.div<RatingCircleProps>`
 
 	span .percentage {
 		font-size: 12px;
-		color: #FFFFFF;
+		color: ${({theme}) => theme.text};
     transform: translateY(7px) 
 	}
 

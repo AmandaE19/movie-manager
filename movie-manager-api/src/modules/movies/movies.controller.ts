@@ -1,10 +1,10 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, UseGuards, Req, ParseIntPipe } from '@nestjs/common';
-import { MoviesService } from './movies.service';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { CreateMovieDto } from './dto/create-movie.dto';
-import { UpdateMovieDto } from './dto/update-movie.dto';
+import { Controller, Get, Post, Patch, Delete, Body, Param, UseGuards, Req, ParseIntPipe } from "@nestjs/common";
+import { MoviesService } from "./movies.service";
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
+import { CreateMovieDto } from "./dto/create-movie.dto";
+import { UpdateMovieDto } from "./dto/update-movie.dto";
 
-@Controller('movies')
+@Controller("movies")
 @UseGuards(JwtAuthGuard)
 export class MoviesController {
   constructor(private moviesService: MoviesService) {}
@@ -19,18 +19,18 @@ export class MoviesController {
     return this.moviesService.findAll(req.user.id);
   }
 
-  @Get(':id')
-  findOne(@Req() req, @Param('id', ParseIntPipe) id: number) {
+  @Get(":id")
+  findOne(@Req() req, @Param("id", ParseIntPipe) id: number) {
     return this.moviesService.findOne(req.user.id, id);
   }
 
-  @Patch(':id')
-  update(@Req() req, @Param('id', ParseIntPipe) id: number, @Body() dto: UpdateMovieDto) {
+  @Patch(":id")
+  update(@Req() req, @Param("id", ParseIntPipe) id: number, @Body() dto: UpdateMovieDto) {
     return this.moviesService.updateMovie(req.user.id, id, dto);
   }
 
-  @Delete(':id')
-  remove(@Req() req, @Param('id', ParseIntPipe) id: number) {
+  @Delete(":id")
+  remove(@Req() req, @Param("id", ParseIntPipe) id: number) {
     return this.moviesService.removeMovie(req.user.id, id);
   }
 }

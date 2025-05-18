@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,11 +21,6 @@ export const Content = styled.div`
   border-radius: 4px;
   display: flex;
   flex-direction: column;
-
-  /* div {
-    display: flex;
-    justify-content: space-between;
-  } */
 `;
 
 export const Header = styled.div`
@@ -33,6 +28,10 @@ export const Header = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 16px;
+
+    :last-child {
+      cursor: pointer;
+    }
 `;
 
 export const FilterOptions = styled.div`

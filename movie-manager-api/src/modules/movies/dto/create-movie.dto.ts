@@ -1,5 +1,4 @@
 import {
-	IsDateString,
 	IsNotEmpty,
 	IsOptional,
 	IsString,
@@ -27,7 +26,7 @@ export class CreateMovieDto {
 	posterUrl?: string;
 
 	@IsOptional()
-	@IsDateString()
+	@IsString()
 	releaseDate: string;
 
 	@IsOptional()

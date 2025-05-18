@@ -7,10 +7,9 @@ export const FormContainer = styled.form`
   border-radius: 4px;
   padding: 16px;
   gap: 16px;
-  background-color: #232225;
+  background-color: ${({ theme }) => theme.colors.mauve[3]};
   display: flex;
   flex-direction: column;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 `;
 
 export const Buttons = styled.div`
@@ -29,7 +28,7 @@ export const Buttons = styled.div`
     font-style: solid;
     offset: 0%;
     text-decoration-thickness: 0%;
-    color: #8E4EC6;
+    color: ${({ theme }) => theme.colors.purple[9]};
     margin-right: 25px;
   }
 `;

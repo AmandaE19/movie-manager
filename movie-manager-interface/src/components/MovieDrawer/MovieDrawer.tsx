@@ -5,7 +5,6 @@ import Button from "../Button/Button";
 import { createMovie, updateMovie } from "../../services/api";
 import type { MovieDrawerProps } from "../../types/global";
 import { formatDateToInput } from "../../utils/functions";
-import { useNavigate } from "react-router-dom";
 
 const MovieDrawer: React.FC<MovieDrawerProps> = ({ isOpen, onClose, movie }) => {
 	const [form, setForm] = useState({
@@ -27,8 +26,6 @@ const MovieDrawer: React.FC<MovieDrawerProps> = ({ isOpen, onClose, movie }) => 
 		trailerUrl: "",
 	});
 
-	const navigate = useNavigate();
-
 	useEffect(() => {
 		if (isOpen && movie) {
 			console.log(movie.releaseDate)
@@ -38,7 +35,7 @@ const MovieDrawer: React.FC<MovieDrawerProps> = ({ isOpen, onClose, movie }) => 
 				tagline: movie.tagline || "",
 				description: movie.description || "",
 				posterUrl: movie.posterUrl || "",
-				releaseDate:  movie.releaseDate ? formatDateToInput(new Date(movie.releaseDate)) : "",
+				releaseDate: movie.releaseDate ? formatDateToInput(new Date(movie.releaseDate)) : "",
 				duration: movie.duration || "",
 				status: movie.status || "",
 				language: movie.language || "",
@@ -82,21 +79,20 @@ const MovieDrawer: React.FC<MovieDrawerProps> = ({ isOpen, onClose, movie }) => 
 			...form,
 			releaseDate: form.releaseDate || ""
 		};
-		console.log(movieToSend)
-		if(movie){
-			if(movie.id) {
+		if (movie) {
+			if (movie.id) {
 				const movieId = movie.id!;
 				await updateMovie(movieId, movieToSend);
 				onClose();
-				navigate("/pagina-inicial");
-				
-			}else {
+				window.location.reload();
+
+			} else {
 				alert("Ops! Algo deu errado!")
 			}
-		}else {
+		} else {
 			await createMovie(movieToSend);
 			onClose();
-			navigate("/pagina-inicial");
+			window.location.reload();
 		}
 	};
 
@@ -127,7 +123,10 @@ const MovieDrawer: React.FC<MovieDrawerProps> = ({ isOpen, onClose, movie }) => 
 					<Input type="text" name="trailerUrl" placeholder="URL do trailer" value={form.trailerUrl} onChange={handleChange} />
 				</S.Form>
 				<S.Footer>
-					<Button onClick={onClose} variant="secondary">Cancelar</Button>
+					<Button
+						onClick={onClose}
+						variant="secondary"
+					>Cancelar</Button>
 					<Button onClick={handleSubmit} variant="primary">{movie ? "Editar Filme" : "Adicionar Filme"}</Button>
 				</S.Footer>
 			</S.Drawer>

@@ -23,10 +23,8 @@ const Login = () => {
       const response = await login(email, password);
 
       if (response.access_token) {
-        localStorage.setItem("token", response.access_token);
-        localStorage.setItem("user", JSON.stringify(response.user));
-
         setIsAuthenticated(true);
+        localStorage.setItem("token", response.access_token);
         navigate("/pagina-inicial");
       } else {
         alert("Falha no login: token não retornado");

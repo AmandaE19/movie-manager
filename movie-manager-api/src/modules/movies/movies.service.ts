@@ -1,7 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '@/prisma/prisma.service';
-import { CreateMovieDto } from './dto/create-movie.dto';
-import { UpdateMovieDto } from './dto/update-movie.dto';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { PrismaService } from "@/prisma/prisma.service";
+import { CreateMovieDto } from "./dto/create-movie.dto";
+import { UpdateMovieDto } from "./dto/update-movie.dto";
 
 @Injectable()
 export class MoviesService {
@@ -27,7 +27,7 @@ export class MoviesService {
     const movie = await this.prisma.movie.findFirst({
       where: { id: movieId, userId },
     });
-    if (!movie) throw new NotFoundException('Movie not found');
+    if (!movie) throw new NotFoundException("Movie not found");
     return movie;
   }
 

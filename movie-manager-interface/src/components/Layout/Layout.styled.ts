@@ -18,7 +18,7 @@ export const Background = styled.div`
   opacity: 0.4;
 
   background: 
-    linear-gradient(to bottom, #121113, #12111346, #121113),
+    linear-gradient(to bottom, ${({theme}) => theme.colors.mauve[1]},  ${({theme}) => theme.colors.mauve[1]}75, ${({theme}) => theme.colors.mauve[1]}),
     url(${BackgroundImg});
   background-size: cover;
   background-position: center;

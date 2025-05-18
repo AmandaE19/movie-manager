@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import type { ProtectedRouteProps } from "../types/global";
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
     return <Navigate to="/" replace />;

@@ -3,10 +3,10 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import MovieList from "../pages/InitialPage/InitialPage";
-// import ProtectedRoute from "./ProtectedRoute";
+import MovieDetails from "../pages/MovieDetail/MovieDetail";
 
 import { useAuth } from "../context/AuthContext";
-import MovieDetails from "../pages/MovieDetail/MovieDetail";
+import ProtectedRoute from "./ProtectedRoute";
 
 const AppRoutes = () => {
   const { isAuthenticated } = useAuth();
@@ -27,17 +27,17 @@ const AppRoutes = () => {
       <Route
         path="/pagina-inicial"
         element={
-          // <ProtectedRoute>
+          <ProtectedRoute>
             <MovieList />
-          // </ProtectedRoute>
+          </ProtectedRoute>
         }
       />
       <Route
         path="/detalhes/:id"
         element={
-          // <ProtectedRoute>
+          <ProtectedRoute>
             <MovieDetails />
-          // </ProtectedRoute>
+          </ProtectedRoute>
         }
       />
       <Route path="*" element={<h1>404 - Página não encontrada</h1>} />

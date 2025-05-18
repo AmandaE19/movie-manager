@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import type { FilterProps } from "../../types/global";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
@@ -5,6 +6,7 @@ import * as S from "./FilterModal.styled";
 
 const FilterModal: React.FC<FilterProps> = ({
     onClose,
+    isOpen,
     initialDate,
     setInitialDate,
     finalDate,
@@ -15,6 +17,18 @@ const FilterModal: React.FC<FilterProps> = ({
     setFilterValueRating,
     handleFilter,
 }) => {
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+
+        return () => {
+            document.body.style.overflow = "unset";
+        };
+    }, [isOpen]);
+
     return (
         <S.Container>
             <S.Content>
@@ -53,7 +67,10 @@ const FilterModal: React.FC<FilterProps> = ({
                     />
                 </S.FilterOptions>
                 <S.Buttons>
-                    <Button variant="secondary" onClick={onClose} >Cancelar</Button>
+                    <Button
+                        variant="secondary"
+                        onClick={onClose}
+                    >Cancelar</Button>
                     <Button variant="primary" type="button" onClick={handleFilter}>Aplicar Filtros</Button>
                 </S.Buttons>
             </S.Content>
