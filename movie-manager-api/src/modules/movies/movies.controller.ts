@@ -4,8 +4,7 @@ import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 import { CreateMovieDto } from "./dto/create-movie.dto";
 import { Express } from "express";
 import { UpdateMovieDto } from "./dto/update-movie.dto";
-import { CloudflareR2Service } from "@/services/cloudflare-r2.service";
-import { PrismaService } from "@/prisma/prisma.service";
+import { CloudflareR2Service } from "@/services/R2Storage/cloudflare-r2.service";
 import { FileInterceptor } from "@nestjs/platform-express";
 
 @Controller("movies")
@@ -23,7 +22,7 @@ export class MoviesController {
     @Req() req: any,
     @Body() dto: CreateMovieDto
   ) {
-    let posterUrl = '';
+    let posterUrl = "";
 
     if (file) {
       const key = `posters/${file.originalname}`;
@@ -60,19 +59,24 @@ export class MoviesController {
 
     const parts = currentMovie.posterUrl?.split("/") || [];
     const posterFileName = parts.length > 0 ? parts[parts.length - 1] : "";
-    const key = `posters/${file.originalname}`;
 
-    let posterUrl = '';
+    let key = "";
 
-    if (file && posterFileName !== key.split("/").pop()) {
+    if (file) {
+      key = `posters/${file.originalname}`;
+    }
+
+    let posterUrl = "";
+
+    if (file && posterFileName !== key.split("/")[-1]) {
       // excluir imagem anterior (implementar depois)
       posterUrl = await this.r2Service.uploadImage(key, file.buffer, file.mimetype);
     }
 
-    const movieData = {
+    const movieData = file ? {
       ...dto,
       posterUrl,
-    };
+    } : { ...dto };
 
     return this.moviesService.updateMovie(req.user.id, id, movieData);
   }

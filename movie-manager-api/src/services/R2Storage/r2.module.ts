@@ -1,5 +1,5 @@
-import { Module } from '@nestjs/common';
-import { CloudflareR2Service } from './cloudflare-r2.service';
+import { Module } from "@nestjs/common";
+import { CloudflareR2Service } from "./cloudflare-r2.service";
 
 @Module({
   providers: [CloudflareR2Service],

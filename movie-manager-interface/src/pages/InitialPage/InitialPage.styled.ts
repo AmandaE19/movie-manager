@@ -3,7 +3,7 @@ import type { CardProps, RatingCircleProps } from "../../types/global";
 
 export const Container = styled.div`
     height: fit-content;
-    min-height: 100dvh;
+    min-height: calc(100dvh - 80px);
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -64,6 +64,14 @@ export const Movies = styled.div`
     background-color: ${({ theme }) => theme.colors.mauveAlpha[3]};
     align-self: center;
     justify-content: center;
+
+    transition: all ease 0.2s;
+
+    @media (max-width: 600px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 `;
 
 export const Card = styled.div<CardProps>`

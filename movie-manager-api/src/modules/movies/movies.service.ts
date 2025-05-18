@@ -2,17 +2,17 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "@/prisma/prisma.service";
 import { CreateMovieDto } from "./dto/create-movie.dto";
 import { UpdateMovieDto } from "./dto/update-movie.dto";
+import { Movie } from "@prisma/client";
 
 @Injectable()
 export class MoviesService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async createMovie(userId: number, dto: CreateMovieDto) {
     return this.prisma.movie.create({
       data: {
         ...dto,
         userId,
-        // releaseDate: dto.releaseDate,
       },
     });
   }
@@ -46,6 +46,17 @@ export class MoviesService {
     await this.findOne(userId, movieId);
     return this.prisma.movie.delete({
       where: { id: movieId },
+    });
+  }
+
+  async findMoviesByReleaseDate(): Promise<Movie[]> {
+    const currentDate = new Date().toISOString();
+    const date = currentDate.split("T")[0];
+
+    return this.prisma.movie.findMany({
+      where: {
+        releaseDate:  date,
+      },
     });
   }
 }

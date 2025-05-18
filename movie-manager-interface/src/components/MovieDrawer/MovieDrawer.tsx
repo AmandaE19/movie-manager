@@ -49,6 +49,7 @@ const MovieDrawer: React.FC<MovieDrawerProps> = ({ isOpen, onClose, movie }) => 
 				genres: movie.genres || "",
 				trailerUrl: movie.trailerUrl || "",
 			});
+			setPosterPreview(movie.posterUrl || "");
 			setPosterFile(null);
 		}
 	}, [isOpen, movie]);
@@ -83,7 +84,7 @@ const MovieDrawer: React.FC<MovieDrawerProps> = ({ isOpen, onClose, movie }) => 
 		setForm(prev => ({
 			...prev,
 			[name]: name === "duration" || name === "budget" || name === "revenue" || name === "voteCount" || name === "rating" || name === "popularity"
-				? Number(value)
+				? value
 				: value
 		}));
 	};
@@ -117,25 +118,6 @@ const MovieDrawer: React.FC<MovieDrawerProps> = ({ isOpen, onClose, movie }) => 
 			alert("Erro ao salvar o filme.");
 			console.error(error);
 		}
-		// const movieToSend = {
-		// 	...form,
-		// 	releaseDate: form.releaseDate || ""
-		// };
-		// if (movie) {
-		// 	if (movie.id) {
-		// 		const movieId = movie.id!;
-		// 		await updateMovie(movieId, movieToSend);
-		// 		onClose();
-		// 		window.location.reload();
-
-		// 	} else {
-		// 		alert("Ops! Algo deu errado!")
-		// 	}
-		// } else {
-		// 	await createMovie(movieToSend);
-		// 	onClose();
-		// 	window.location.reload();
-		// }
 	};
 
 	return (
@@ -151,7 +133,6 @@ const MovieDrawer: React.FC<MovieDrawerProps> = ({ isOpen, onClose, movie }) => 
 					<Input type="text" name="originalTitle" placeholder="Título Original" value={form.originalTitle} onChange={handleChange} />
 					<Input type="text" name="tagline" placeholder="Frase de impacto" value={form.tagline} onChange={handleChange} />
 					<Input type="text" name="description" placeholder="Descrição" value={form.description} onChange={handleChange} />
-					{/* <Input type="text" name="posterUrl" placeholder="URL do Poster" value={form.posterUrl} onChange={handleChange} /> */}
 					{posterPreview && (
 						<img
 							src={posterPreview}

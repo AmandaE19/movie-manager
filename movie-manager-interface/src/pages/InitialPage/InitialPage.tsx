@@ -78,7 +78,6 @@ const MovieList = () => {
     setIsFilterOpen(false);
   }
 
-  console.log(movies)
   return (
     <Layout>
       <AddMovieDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />

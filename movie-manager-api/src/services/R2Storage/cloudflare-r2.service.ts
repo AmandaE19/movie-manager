@@ -28,7 +28,7 @@ export class CloudflareR2Service {
 
     const fullUrl = `${process.env.IMAGES_BASE_BUCKET_URL}/${key}`;
 
-    const urlToSave = fullUrl.replace('/movies-images', '');
+    const urlToSave = fullUrl.replace(`/${process.env.CF_R2_BUCKET_NAME}`, "");
 
     return urlToSave;
   }

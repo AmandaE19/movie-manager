@@ -87,7 +87,7 @@ export interface ThemeContextType {
 }
 
 export interface CardProps {
-    imageBg: string;
+    imageBg: string | undefined;
 }
 
 export interface RatingCircleProps {

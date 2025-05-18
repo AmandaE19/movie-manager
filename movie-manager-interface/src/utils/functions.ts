@@ -7,12 +7,18 @@ export const formatStringToFloat = (value: string): number => {
 }
 
 export const formatDate = (date: string): string => {
+	if(!date) {
+		return "";
+	}
 	const currentDate = date.split(" ")[0];
 	const [year, month, day] = currentDate.split("-");
 	return `${day}/${month}/${year}`;
 };
 
 export const formatMinutes = (totalMinutes: string): string => {
+	if(!totalMinutes) {
+		return "";
+	}
 	const minutesToNumber = Number(totalMinutes)
 	const hours = Math.floor(minutesToNumber / 60);
 	const minutes = minutesToNumber % 60;
@@ -40,6 +46,9 @@ export const formatCurrencyShort = (value: string): string => {
 };
 
 export const handleStatus = (date: string): string => {
+	if(!date) {
+		return "";
+	}
 	const currentDate = new Date().getTime();
 	const dateToConvert = new Date(date).getTime();
 	if(currentDate >= dateToConvert) {

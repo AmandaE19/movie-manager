@@ -1,0 +1,13 @@
+name: Job To Send Emails
+
+on:
+  schedule:
+    - cron: "0 1 * * *"
+
+jobs:
+  call-release-email-api:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call release emails endpoint
+        run: curl -X POST http://localhost:8080/emails
