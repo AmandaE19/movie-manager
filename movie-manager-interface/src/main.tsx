@@ -6,8 +6,9 @@ import { GlobalStyle } from "./styles/global"
 import { ThemeContextProvider, useTheme } from "./context/ThemeContext"
 import { AuthProvider } from "./context/AuthContext"
 
-const Root = () => {
+const AppWhithProviders = () => {
   const { theme } = useTheme();
+
   return (
     <ThemeProvider theme={theme}>
       <AuthProvider>
@@ -21,7 +22,7 @@ const Root = () => {
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeContextProvider>
-      <Root />
+      <AppWhithProviders />
     </ThemeContextProvider>
   </React.StrictMode>,
 )

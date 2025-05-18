@@ -16,15 +16,23 @@ model User {
 }
 
 model Movie {
-  id            Int      @id @default(autoincrement())
-  title         String
-  originalTitle String?
-  description   String?
-  budget        Float?
-  releaseDate   DateTime
-  duration      Int
-  genre         String
-  rating        String
-  userId        Int
-  user          User     @relation(fields: [userId], references: [id])
+  id             Int      @id @default(autoincrement())
+  title          String
+  originalTitle  String?
+  tagline        String?
+  description    String?
+  posterUrl      String?
+  releaseDate    String?
+  duration       String?
+  status         String?
+  language       String?
+  budget         String?
+  revenue        String?
+  popularity     String?
+  voteCount      String?
+  rating         String?
+  genres         String?
+  trailerUrl     String?
+  userId         Int
+  user           User        @relation(fields: [userId], references: [id])
 }

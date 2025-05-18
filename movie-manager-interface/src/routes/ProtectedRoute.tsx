@@ -1,12 +1,9 @@
-import { type JSX } from "react";
 import { Navigate } from "react-router-dom";
-
-interface ProtectedRouteProps {
-  children: JSX.Element;
-}
+import { useAuth } from "../context/AuthContext";
+import type { ProtectedRouteProps } from "../types/global";
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const isAuthenticated = Boolean(localStorage.getItem("token"));
+  const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
     return <Navigate to="/" replace />;
