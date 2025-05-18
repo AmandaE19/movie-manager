@@ -6,7 +6,7 @@ export type Movie = {
     originalTitle: string;
     tagline: string;
     description: string;
-    posterUrl: string;
+    posterUrl?: string;
     releaseDate: string;
     duration: string;
     status: string;

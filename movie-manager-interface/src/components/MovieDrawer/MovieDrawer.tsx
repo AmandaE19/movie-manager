@@ -26,9 +26,11 @@ const MovieDrawer: React.FC<MovieDrawerProps> = ({ isOpen, onClose, movie }) => 
 		trailerUrl: "",
 	});
 
+	const [posterFile, setPosterFile] = useState<File | null>(null);
+	const [posterPreview, setPosterPreview] = useState<string>("");
+
 	useEffect(() => {
 		if (isOpen && movie) {
-			console.log(movie.releaseDate)
 			setForm({
 				title: movie.title || "",
 				originalTitle: movie.originalTitle || "",
@@ -47,6 +49,7 @@ const MovieDrawer: React.FC<MovieDrawerProps> = ({ isOpen, onClose, movie }) => 
 				genres: movie.genres || "",
 				trailerUrl: movie.trailerUrl || "",
 			});
+			setPosterFile(null);
 		}
 	}, [isOpen, movie]);
 
@@ -64,8 +67,19 @@ const MovieDrawer: React.FC<MovieDrawerProps> = ({ isOpen, onClose, movie }) => 
 
 	if (!isOpen) return null;
 
+	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+		if (file) {
+			setPosterFile(file);
+
+			const previewUrl = URL.createObjectURL(file);
+			setPosterPreview(previewUrl);
+		}
+	};
+
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
+
 		setForm(prev => ({
 			...prev,
 			[name]: name === "duration" || name === "budget" || name === "revenue" || name === "voteCount" || name === "rating" || name === "popularity"
@@ -75,25 +89,53 @@ const MovieDrawer: React.FC<MovieDrawerProps> = ({ isOpen, onClose, movie }) => 
 	};
 
 	const handleSubmit = async () => {
-		const movieToSend = {
-			...form,
-			releaseDate: form.releaseDate || ""
-		};
-		if (movie) {
-			if (movie.id) {
-				const movieId = movie.id!;
-				await updateMovie(movieId, movieToSend);
-				onClose();
-				window.location.reload();
+		try {
+			if (posterFile) {
+				const formData = new FormData();
+				Object.entries(form).forEach(([key, value]) => {
+					if (key !== "posterUrl") {
+						formData.append(key, value === undefined || value === null ? "" : value.toString());
+					}
+				});
+				formData.append("posterUrl", posterFile);
 
+				if (movie && movie.id) {
+					await updateMovie(movie.id, formData);
+				} else {
+					await createMovie(formData);
+				}
 			} else {
-				alert("Ops! Algo deu errado!")
+				if (movie && movie.id) {
+					await updateMovie(movie.id, form);
+				} else {
+					await createMovie(form);
+				}
 			}
-		} else {
-			await createMovie(movieToSend);
 			onClose();
 			window.location.reload();
+		} catch (error) {
+			alert("Erro ao salvar o filme.");
+			console.error(error);
 		}
+		// const movieToSend = {
+		// 	...form,
+		// 	releaseDate: form.releaseDate || ""
+		// };
+		// if (movie) {
+		// 	if (movie.id) {
+		// 		const movieId = movie.id!;
+		// 		await updateMovie(movieId, movieToSend);
+		// 		onClose();
+		// 		window.location.reload();
+
+		// 	} else {
+		// 		alert("Ops! Algo deu errado!")
+		// 	}
+		// } else {
+		// 	await createMovie(movieToSend);
+		// 	onClose();
+		// 	window.location.reload();
+		// }
 	};
 
 	return (
@@ -109,7 +151,21 @@ const MovieDrawer: React.FC<MovieDrawerProps> = ({ isOpen, onClose, movie }) => 
 					<Input type="text" name="originalTitle" placeholder="Título Original" value={form.originalTitle} onChange={handleChange} />
 					<Input type="text" name="tagline" placeholder="Frase de impacto" value={form.tagline} onChange={handleChange} />
 					<Input type="text" name="description" placeholder="Descrição" value={form.description} onChange={handleChange} />
-					<Input type="text" name="posterUrl" placeholder="URL do Poster" value={form.posterUrl} onChange={handleChange} />
+					{/* <Input type="text" name="posterUrl" placeholder="URL do Poster" value={form.posterUrl} onChange={handleChange} /> */}
+					{posterPreview && (
+						<img
+							src={posterPreview}
+							alt="Poster Preview"
+							style={{ width: "200px", height: "auto", marginBottom: "10px", borderRadius: "8px" }}
+						/>
+					)}
+
+					<Input
+						type="file"
+						name="posterFile"
+						accept="image/*"
+						onChange={handleFileChange}
+					/>
 					<Input type="date" name="releaseDate" placeholder="Data de Lançamento" value={form.releaseDate} onChange={handleChange} required />
 					<Input type="text" name="duration" placeholder="Duração (min)" value={form.duration} onChange={handleChange} />
 					<Input type="text" name="status" placeholder="Status (ex: Lançado)" value={form.status} onChange={handleChange} />

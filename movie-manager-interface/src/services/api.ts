@@ -57,18 +57,22 @@ export const getOneMovies = async (movieId: string) => {
   }
 };
 
-export const createMovie = async (movieToSend: Movie ) => {
+export const createMovie = async (movieToSend: Movie | FormData) => {
   try {
-    const response = await api.post("/movies", movieToSend );
+    const response = await api.post("/movies", movieToSend, {
+      headers: movieToSend instanceof FormData ? { 'Content-Type': 'multipart/form-data' } : undefined,
+    });
     return response.data;
   } catch (error: any) {
     alert(error.response?.data?.message || "Erro ao criar usuário");
   }
 }
 
-export const updateMovie = async (movieId: string, movieToSend: Movie ) => {
+export const updateMovie = async (movieId: string, movieToSend: Movie | FormData) => {
   try {
-    const response = await api.patch(`/movies/${movieId}`, movieToSend );
+    const response = await api.patch(`/movies/${movieId}`, movieToSend, {
+      headers: movieToSend instanceof FormData ? { 'Content-Type': 'multipart/form-data' } : undefined,
+    });
     return response.data;
   } catch (error: any) {
     alert(error.response?.data?.message || "Erro ao atualizar filme");
