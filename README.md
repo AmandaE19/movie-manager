@@ -148,3 +148,27 @@ npm run dev
 Abra no navegador: http://localhost:5173
 
 ![alt text](LoginPage.png)
+
+---
+
+## Endpoints da API
+
+### Endpoints que não precisam de autenticação
+
+| Método | Rota          | Descrição                   | Corpo da Requisição                                 |
+|--------|---------------|-----------------------------|-----------------------------------------------------|
+| POST   | /auth/login   | Realiza login               | `{ "email": "...", "password": "..." }`                | 
+| POST   | /auth/register| Cria um novo usuário        | `{ "name": "...", "email": "...", "password": "..." }` |
+
+### Endpoints que necessitam de autenticação 
+> Requerem header: `Authorization: Bearer <token>`
+
+| Método | Rota         | Descrição                        | Corpo da Requisição                              | Exemplo de Resposta          |
+|--------|--------------|----------------------------------|--------------------------------------------------|------------------------------|
+| POST   | /movies      | Cria um novo filme               | Campos do DTO + (opcional) imagem (multipart)    | `{ "id": 1, ... }`           |
+| GET    | /movies      | Lista todos os filmes do usuário | -                                                | `[ { "id": 1, ... } ]`       |
+| GET    | /movies/:id  | Busca um filme por ID            | -                                                | `{ "id": 1, ... }`           |
+| PATCH  | /movies/:id  | Atualiza dados de um filme       | Campos do DTO + (opcional) imagem (multipart)    | `{ "id": 1, ... }`           |
+| DELETE | /movies/:id  | Remove um filme                  | -                                                | `{ "message": "Removido" }`  |
+| POST   | /emails      | Verifica se há filmes para lançar na data e envia email para o usuário | -          | `{ message: "Emails enviados", count: ... }` | 
+
