@@ -51,6 +51,40 @@ npm install
 
 Crie um arquivo `.env` na raiz do backend do projeto (`movie-manager-api`) e preencha as variáveis (Siga o modelo em `.env.example`):
 
+Antes de preencher as informações no env, vamos coletar cada uma delas
+1) username:
+   - Seu username que usou para criar conta no pgAdmin 4
+
+2) password:
+   - Sua senha que usou para criar conta no pgAdmin 4
+
+3) r2-bucket-name:
+   - Abra o [R2](https://dash.cloudflare.com/login).
+   - Acesse sua conta ou crie uma.
+   - No menu lateral esquerdo procure por "R2 Object Storage".
+   - Crie um bucket: Clique em "Create Bucket" , preencha "bucket name" com "movies-images" e finalize clicando em "Create Bucket". Esse será o valor do seu r2-bucket-name="movies-images".
+
+4) r2-endpoint:
+   - Na página "R2 Object Storage": Clique no seu bucket (movies-images).
+   - Abra as configurações do Bucket em "Settings" e copie o valor de S3 API (esse será seu r2-endpoints, remova a parte /movies-images)
+
+5) r2-key-id e r2-secret-access-key:
+   - Na página "R2 Object Storage": Clique em "{} API" e em "Manage API Tokens".
+   - Em Account API Tokens: Clique em "Create Account API Token".
+   - Token name: r2-upload-backend
+   - Em Permissions marque a opção "Object Read & Write".
+   - Clique em "Create Account API Token"
+   - Access Key ID: r2-key-id e Secret Access Key: r2-secret-access-key
+
+6) r2-public-url-dev:
+   - Para funcionar "Public Access" deve estar como "Enabled", se não estiver, clique em Settings e em "Public Development URL" clique em "Enable" isso irá gerar uma URL pública, essa será sua r2-public-url-dev
+  
+7) resend-api-key:
+   - Abra o serviço [Resend](https://resend.com/login), faça login ou crie uma conta.
+   - Clique em Add API Key, exiba sua API Key clicando no ícone e copie-a, essa será sua resend-api-key
+
+8) Agora com todas as variáveis em mãos, substitua onde for necessário {nome da variável}.
+
 ```bash
 DATABASE_URL="postgresql://{username}:{password}@localhost:5432/movie_manager?schema=public"
 JWT_SECRET="jwt-secret"
@@ -77,7 +111,7 @@ Para rodar a aplicação, é necessário ter o PostgreSQL instalado e configurad
 - Volte ao código backend e com terminal ainda em `movie-manager/movie-manager-api`, execute o comando:
 
 ```bash
-npx prisma migrate deploy
+npx prisma migrate dev --name init
 ```
 
 ### Inicie a aplicação
@@ -114,3 +148,27 @@ npm run dev
 Abra no navegador: http://localhost:5173
 
 ![alt text](LoginPage.png)
+
+---
+
+## Endpoints da API
+
+### Endpoints que não precisam de autenticação
+
+| Método | Rota          | Descrição                   | Corpo da Requisição                                 |
+|--------|---------------|-----------------------------|-----------------------------------------------------|
+| POST   | /auth/login   | Realiza login               | `{ "email": "...", "password": "..." }`                | 
+| POST   | /auth/register| Cria um novo usuário        | `{ "name": "...", "email": "...", "password": "..." }` |
+
+### Endpoints que necessitam de autenticação 
+> Requerem header: `Authorization: Bearer <token>`
+
+| Método | Rota         | Descrição                        | Corpo da Requisição                              | Exemplo de Resposta          |
+|--------|--------------|----------------------------------|--------------------------------------------------|------------------------------|
+| POST   | /movies      | Cria um novo filme               | Campos do DTO + (opcional) imagem (multipart)    | `{ "id": 1, ... }`           |
+| GET    | /movies      | Lista todos os filmes do usuário | -                                                | `[ { "id": 1, ... } ]`       |
+| GET    | /movies/:id  | Busca um filme por ID            | -                                                | `{ "id": 1, ... }`           |
+| PATCH  | /movies/:id  | Atualiza dados de um filme       | Campos do DTO + (opcional) imagem (multipart)    | `{ "id": 1, ... }`           |
+| DELETE | /movies/:id  | Remove um filme                  | -                                                | `{ "message": "Removido" }`  |
+| POST   | /emails      | Verifica se há filmes para lançar na data e envia email para o usuário | -          | `{ message: "Emails enviados", count: ... }` | 
+
