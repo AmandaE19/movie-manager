@@ -31,7 +31,7 @@ const MovieDetails = () => {
       }
     }
     getFunction();
-  }, [])
+  }, [id])
 
   useEffect(() => {
     if (isDeleteOpen) {
@@ -51,6 +51,20 @@ const MovieDetails = () => {
       navigate("/pagina-inicial");
     }
   }
+
+  const extractYouTubeId = (url: string): string | null => {
+    const patterns = [
+      /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
+      /youtube\.com\/v\/([^&\n?#]+)/
+    ];
+
+    for (const pattern of patterns) {
+      const match = url.match(pattern);
+      if (match) return match[1];
+    }
+
+    return null;
+  };
 
   return (
     <Layout>
@@ -76,119 +90,133 @@ const MovieDetails = () => {
             <S.InfoSection imageBg={movie?.posterUrl}>
               <S.HeaderInfoSection>
                 <div>
-                  <S.Title>{movie?.title || ""}</S.Title>
-                  <S.Subtitle>{movie?.originalTitle || ""}</S.Subtitle>
+                  <S.MovieTitle>{movie?.title || ""}</S.MovieTitle>
+                  <S.MovieSubtitle>{movie?.originalTitle || ""}</S.MovieSubtitle>
                 </div>
-                <S.ButtonsRow>
+                <S.ActionsButtonRow>
                   <Button
                     variant="secondary"
                     onClick={() => setIsDeleteOpen(true)}
                   >Deletar</Button>
                   <Button variant="primary" onClick={() => setIsDrawerOpen(true)}>Editar</Button>
-                </S.ButtonsRow>
+                </S.ActionsButtonRow>
               </S.HeaderInfoSection>
 
               <S.ContentInfoSection>
+                <S.MobileHeaderInfoSection>
+                  <div>
+                    <S.MovieTitle>{movie?.title || ""}</S.MovieTitle>
+                    <S.MovieSubtitle>{movie?.originalTitle || ""}</S.MovieSubtitle>
+                  </div>
+                  <S.ActionsButtonRow>
+                    <Button
+                      variant="secondary"
+                      onClick={() => setIsDeleteOpen(true)}
+                    >Deletar</Button>
+                    <Button variant="primary" onClick={() => setIsDrawerOpen(true)}>Editar</Button>
+                  </S.ActionsButtonRow>
+                </S.MobileHeaderInfoSection>
+
                 <S.Poster src={movie?.posterUrl || ""} alt="Poster do filme" />
 
-                <S.Section>
-                  <S.SectionHeader>
-                    <S.TagLine>
+                <S.InfosGrid>
+                  <S.HeaderContentInfoSection>
+                    <S.MovieTagline>
                       {movie?.tagline}
-                    </S.TagLine>
+                    </S.MovieTagline>
 
-                    <S.Info1>
-                      <S.ContainerInfo>
-                        <S.TitleText>POPULARIDADE</S.TitleText>
-                        <S.InfoDescriptionText>{formatStringToFloat(movie?.popularity) || ""}</S.InfoDescriptionText>
-                      </S.ContainerInfo>
-                      <S.ContainerInfo>
-                        <S.TitleText>VOTOS</S.TitleText>
-                        <S.InfoDescriptionText>{formatStringToFloat(movie?.voteCount) || ""}</S.InfoDescriptionText>
-                      </S.ContainerInfo>
+                    <S.InfoGroup>
+                      <S.ContainerInfoHeader>
+                        <S.InfoTitle>POPULARIDADE</S.InfoTitle>
+                        <S.InfoDescription>{formatStringToFloat(movie?.popularity) || ""}</S.InfoDescription>
+                      </S.ContainerInfoHeader>
+                      <S.ContainerInfoHeader>
+                        <S.InfoTitle>VOTOS</S.InfoTitle>
+                        <S.InfoDescription>{formatStringToFloat(movie?.voteCount) || ""}</S.InfoDescription>
+                      </S.ContainerInfoHeader>
                       <S.RatingCircle percentage={formatStringToFloat(movie?.rating) || 0 * 10}>
                         <span>{Number(movie?.rating || 0) * 10}<span className="percentage">%</span></span>
                       </S.RatingCircle>
-                    </S.Info1>
-                  </S.SectionHeader>
+                    </S.InfoGroup>
+                  </S.HeaderContentInfoSection>
 
-                  <S.SectionContent>
-                    <S.Info2>
-                      <S.ContainerInfo>
-                        <S.TitleText>SINOPSE</S.TitleText>
-                        <S.InfoDescriptionText className="description">{movie?.description || ""}</S.InfoDescriptionText>
-                      </S.ContainerInfo>
+                  <S.DivInfosGrid>
+                    <S.LeftInfoGrid>
+                      <S.LeftInfoGridCard>
+                        <S.InfoTitle>SINOPSE</S.InfoTitle>
+                        <S.InfoDescription className="description">{movie?.description || ""}</S.InfoDescription>
+                      </S.LeftInfoGridCard>
 
-
-                      <S.ContainerInfo>
-                        <S.TitleText>Generos</S.TitleText>
+                      <S.LeftInfoGridCard>
+                        <S.InfoTitle>GÊNEROS</S.InfoTitle>
                         {movie.genres &&
-                          <S.Genres>
-                            {movie.genres.split(",").map((genre) => (
-                              <S.GenreInfo>{genre}</S.GenreInfo>
+                          <S.GenresContainer>
+                            {movie.genres.split(",").map((genre, index) => (
+                              <S.GenreTag key={index}>{genre}</S.GenreTag>
                             ))}
-                          </S.Genres>
+                          </S.GenresContainer>
                         }
-                      </S.ContainerInfo>
+                      </S.LeftInfoGridCard>
+                    </S.LeftInfoGrid>
 
-                    </S.Info2>
+                    <S.RightInfoGrid>
+                      <S.InfoGroupGrid>
+                        <S.RightInfoGridCard>
+                          <S.InfoTitle>LANÇAMENTO</S.InfoTitle>
+                          <S.InfoDescription>{formatDate(movie?.releaseDate) || ""}</S.InfoDescription>
+                        </S.RightInfoGridCard>
+                        <S.RightInfoGridCard>
+                          <S.InfoTitle>DURAÇÃO</S.InfoTitle>
+                          <S.InfoDescription>{formatMinutes(movie?.duration) || ""}</S.InfoDescription>
+                        </S.RightInfoGridCard>
+                      </S.InfoGroupGrid>
 
-                    <S.Info3 style={{ marginTop: "20px" }}>
-                      <div>
-                        <S.ContainerInfo>
-                          <S.TitleText>Lançamento</S.TitleText>
-                          <S.InfoDescriptionText>{formatDate(movie?.releaseDate) || ""}</S.InfoDescriptionText>
-                        </S.ContainerInfo>
-                        <S.ContainerInfo>
-                          <S.TitleText>Duração</S.TitleText>
-                          <S.InfoDescriptionText>{formatMinutes(movie?.duration) || ""}</S.InfoDescriptionText>
-                        </S.ContainerInfo>
-                      </div>
-                      <div>
-                        <S.ContainerInfo>
-                          <S.TitleText>Situação</S.TitleText>
-                          <S.InfoDescriptionText>{movie?.status || handleStatus(movie.releaseDate)}</S.InfoDescriptionText>
-                        </S.ContainerInfo>
-                        <S.ContainerInfo>
-                          <S.TitleText>Idioma</S.TitleText>
-                          <S.InfoDescriptionText>{movie?.language || ""}</S.InfoDescriptionText>
-                        </S.ContainerInfo>
-                      </div>
-                      <div>
-                        <S.ContainerInfo>
-                          <S.TitleText>Orçamento</S.TitleText>
-                          <S.InfoDescriptionText>${formatCurrencyShort(movie?.budget) || 0}</S.InfoDescriptionText>
-                        </S.ContainerInfo>
-                        <S.ContainerInfo>
-                          <S.TitleText>Receita</S.TitleText>
-                          <S.InfoDescriptionText>${formatCurrencyShort(movie?.revenue) || 0}</S.InfoDescriptionText>
-                        </S.ContainerInfo>
-                        <S.ContainerInfo>
-                          <S.TitleText>Lucro</S.TitleText>
-                          <S.InfoDescriptionText>${formatCurrencyShort((Number(movie?.revenue) - Number(movie?.budget)).toString()) || 0}</S.InfoDescriptionText>
-                        </S.ContainerInfo>
-                      </div>
-                    </S.Info3>
-                  </S.SectionContent>
-                </S.Section>
+                      <S.InfoGroupGrid>
+                        <S.RightInfoGridCard>
+                          <S.InfoTitle>SITUAÇÃO</S.InfoTitle>
+                          <S.InfoDescription>{movie?.status || handleStatus(movie.releaseDate)}</S.InfoDescription>
+                        </S.RightInfoGridCard>
+                        <S.RightInfoGridCard>
+                          <S.InfoTitle>IDIOMA</S.InfoTitle>
+                          <S.InfoDescription>{movie?.language || ""}</S.InfoDescription>
+                        </S.RightInfoGridCard>
+                      </S.InfoGroupGrid>
+
+                      <S.InfoGroupGrid>
+                        <S.RightInfoGridCard>
+                          <S.InfoTitle>ORÇAMENTO</S.InfoTitle>
+                          <S.InfoDescription>${formatCurrencyShort(movie?.budget) || 0}</S.InfoDescription>
+                        </S.RightInfoGridCard>
+                        <S.RightInfoGridCard>
+                          <S.InfoTitle>RECEITA</S.InfoTitle>
+                          <S.InfoDescription>${formatCurrencyShort(movie?.revenue) || 0}</S.InfoDescription>
+                        </S.RightInfoGridCard>
+                        <S.RightInfoGridCard>
+                          <S.InfoTitle>LUCRO</S.InfoTitle>
+                          <S.InfoDescription>${formatCurrencyShort((Number(movie?.revenue) - Number(movie?.budget)).toString()) || 0}</S.InfoDescription>
+                        </S.RightInfoGridCard>
+                      </S.InfoGroupGrid>
+                    </S.RightInfoGrid>
+                  </S.DivInfosGrid>
+                </S.InfosGrid>
               </S.ContentInfoSection>
             </S.InfoSection>
 
-            {movie?.trailerUrl !== "" &&
+            {movie?.trailerUrl && extractYouTubeId(movie.trailerUrl) && (
               <S.TrailerWrapper>
                 <span>Trailer</span>
                 <iframe
-                  src={`https://www.youtube.com/embed/${movie?.trailerUrl.split("?")[1].replace("v=", "")}` || ""}
+                  src={`https://www.youtube.com/embed/${extractYouTubeId(movie.trailerUrl)}`}
                   title={`${movie?.title} trailer`}
-                  frameBorder="0"
+                  style={{ border: 0 }}
                   allowFullScreen
                 />
               </S.TrailerWrapper>
-            }
+            )}
           </>
         }
       </S.Container>
-    </Layout>
+    </Layout >
   );
 };
 

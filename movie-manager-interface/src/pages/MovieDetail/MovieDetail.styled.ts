@@ -10,22 +10,28 @@ export const Container = styled.main`
   padding: 32px;
   margin-top: 90px;
 
-  @media (max-width: 900px) {
+  @media (max-width: 1450px) {
+    padding: 16px;
     transition: all ease 0.2s;
-    display: flex;
-    align-items: center;
+  }
+  
+  @media (max-width: 1024px) {
+    
+  }
+  
+  @media (max-width: 768px) {
+    padding: 12px;
+    transition: all ease 0.2s;
   }
 
-  @media (max-width: 540px) {
-    transition: all ease 0.2s;
-    display: flex;
-    align-items: center;
+  @media (max-width: 480px) {
+      
   }
 `;
 
 export const InfoSection = styled.div<CardProps>`
   background: 
-    linear-gradient(to bottom, ${({theme}) => theme.colors.mauve[1]}, ${({theme}) => theme.colors.mauve[1]}46, ${({theme}) => theme.colors.mauve[1]}),
+    linear-gradient(to bottom, ${({ theme }) => theme.colors.mauve[1]}, ${({ theme }) => theme.colors.mauve[1]}46, ${({ theme }) => theme.colors.mauve[1]}),
     ${({ imageBg }) => `url(${imageBg})`};
   background-repeat: no-repeat;
   background-size: cover;
@@ -33,90 +39,376 @@ export const InfoSection = styled.div<CardProps>`
   width: 100%;
   height: fit-content;
   padding: 32px;
-  gap: 16px;
   display: flex;
   flex-direction: column;
   gap: 16px;
 
-  @media (max-width: 900px) {
+  @media (max-width: 1450px) {
+    width: 98%;
+    padding: 16px;
     transition: all ease 0.2s;
-    display: flex;
-    align-items: center;
-
-    background: none;
   }
 
-  @media (max-width: 540px) {
-      transition: all ease 0.2s;
-      display: flex;
-      align-items: center;
-    }
+  @media (max-width: 1024px) {
+    padding: 16px;
+    background: none;
+    transition: all ease 0.2s;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 12px;
+    transition: all ease 0.2s;
+  }
+
+  @media (max-width: 480px) {
+    padding: 12px;    
+  }
 `;
 
 export const HeaderInfoSection = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-
-  @media (max-width: 540px) {
+  align-items: center;
+  
+  @media (max-width: 1450px) {
+    gap: 16px;
+  }
+  
+  @media (max-width: 1024px) {
+    display: none;
+  }
+  
+  @media (max-width: 768px) {
+    gap: 12px;
     transition: all ease 0.2s;
+  }
+  
+  @media (max-width: 480px) {
+    text-align: center;
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+`;
+
+export const MobileHeaderInfoSection = styled(HeaderInfoSection)`
+  display: none;
+  width: 100%;
+
+  @media (max-width: 1024px) {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
+    order: 2;
   }
 `;
 
 export const ContentInfoSection = styled.div`
   width: 100%;
   display: flex;
+  gap: 24px;
+  align-items: flex-start;
 
-  @media (max-width: 900px) {
-    display: flex;
-    flex-direction: column;
-    transition: all ease 0.2s;
+  > div:first-child {
+    width: 20%;
   }
 
-  @media (max-width: 540px) {
+  > div:last-child {
+    width: 80%;
+  }
+  
+  @media (max-width: 1024px) {
     display: flex;
     flex-direction: column;
-    transition: all ease 0.2s;
+    align-items: center;
+    order: 1;
+
+    > div:first-child {
+      width: 100%;  
+    }
+
+    > div:last-child {
+      width: 100%;
+    }
   }
 `;
 
-export const Section = styled.div`
-  width: 100%;
+export const Poster = styled.img`
+  width: 374px;
+  height: 542px;
+  border-radius: 4px;
+  box-shadow: 0px 1px 5px 0px 12px #00000020;
+  object-fit: cover;
+
+  @media (max-width: 1450px) {
+    width: 100%;
+    max-width: 374px;
+    height: auto;
+    transition: all ease 0.2s;
+  }
+
+  @media (max-width: 1024px) {
+    order: 1;
+  }
+`;
+
+export const InfosGrid = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 20px;
+
+  @media (max-width: 1450px) {
+    gap: 16px;
+  }
+
+  @media (max-width: 1024px) {
+    order: 3;
+  }
+
+  @media (max-width: 748px) {
+    gap: 12px;
+  }
 `;
 
-export const SectionHeader = styled.div`
+export const HeaderContentInfoSection = styled.div`
   width: 100%;
-  height: fit-content;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 16px;
-
-  @media (max-width: 900px) {
-    display: flex;
-    padding: 16px 0px;
-    flex-direction: column-reverse;
-    transition: all ease 0.2s;
-    
+  justify-content: space-between;
+  gap: 16px;
+  
+  @media (max-width: 1450px) {
+    gap: 14px;
   }
-
-  @media (max-width: 540px) {
-    display: flex;
-    flex-direction: column;
-    transition: all ease 0.2s;
+  
+  @media (max-width: 1024px) {
+    gap: 12px;   
+    flex-direction: column-reverse;
+    order: 1;
   }
 `;
 
-export const TagLine = styled.div`
+export const DivInfosGrid = styled.div`
+  display: flex;
+  width: 100%;
+  gap: 16px;
+
+  @media (max-width: 1450px) {
+    gap: 12px;
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    gap: 12px;
+    order: 2;
+  }
+
+  @media (max-width: 748px) {
+    gap: 8px;
+  }
+`;
+
+export const LeftInfoGrid = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  gap: 20px;
+  
+  @media (max-width: 1024px) {
+    order: 1;
+    width: 100%;
+  }
+`;
+
+export const LeftInfoGridCard = styled.div`
+  width: 100%;
+  min-width: 150px;
+  max-width: 100%;
+  height: fit-content;
+  border-radius: 4px;
+  padding: 16px;
+  background-color: ${({ theme }) => theme.colors.mauve[3]}BF;
+  backdrop-filter: blur(4px);
+  gap: 8px;
+
+  line-height: 100%;
+  letter-spacing: 0px;
+  font-family: "Montserrat", sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: all ease 0.2s;
+
+  @media (max-width: 1450px) {
+    width: 100%;
+    text-align: center;
+    flex: 1;
+    min-width: 120px;
+  }
+
+  @media (max-width: 1024px) {
+    max-width: none;
+  }
+`;
+
+export const RightInfoGrid = styled.div`
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+  gap: 20px;
+  text-align: left;
+    
+  @media (max-width: 1024px) {
+    order: 2;
+    width: 100%;
+  }
+
+  @media (max-width: 748px) {
+    gap: 12px;
+  }
+`;
+
+export const RightInfoGridCard = styled.div`
+  flex: 1;
+  min-width: 150px;
+  height: fit-content;
+  border-radius: 4px;
+  padding: 16px;
+  background-color: ${({ theme }) => theme.colors.mauve[3]}BF;
+  backdrop-filter: blur(4px);
+  gap: 8px;
+
+  line-height: 100%;
+  letter-spacing: 0px;
+  font-family: "Montserrat", sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: all ease 0.2s;
+
+  @media (max-width: 1450px) {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+    flex: 1;
+    min-width: 120px;
+  }
+
+  @media (max-width: 1024px) {
+    max-width: none;
+  }
+`;
+
+export const InfoGroupGrid = styled.div`
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  width: 100%;
+
+  @media (max-width: 1450px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  @media (max-width: 748px) {
+    gap: 8px;
+  }
+
+  /* Ordem específica para mobile */
+  &:first-child {
+    @media (max-width: 1450px) {
+
+    }
+  }
+
+  &:nth-child(2) {
+    @media (max-width: 1450px) {
+
+    }
+  }
+
+  &:nth-child(3) {
+    @media (max-width: 1450px) {
+
+    }
+  }
+
+  &:nth-child(4) {
+    @media (max-width: 1450px) {
+
+    }
+  }
+`;
+
+export const InfoGroup = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+
+  @media (max-width: 1450px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
+`;
+
+export const ContainerInfoHeader = styled.div`
+  width: auto;
+  min-width: 150px;
+  max-width: 100%;
+  height: fit-content;
+  border-radius: 4px;
+  padding: 16px;
+  background-color: ${({ theme }) => theme.colors.mauve[3]}BF;
+  backdrop-filter: blur(4px);
+  gap: 8px;
+
+  line-height: 100%;
+  letter-spacing: 0px;
+  font-family: "Montserrat", sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: all ease 0.2s;
+
+  @media (max-width: 1450px) {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+    flex: 1;
+    min-width: 120px;
+  }
+
+  @media (max-width: 1024px) {
+    max-width: none;
+  }
+`;
+
+export const MovieTagline = styled.div`
   width: fit-content;
   display: flex;
   align-items: center;
   height: 100%;
   padding: 16px;
+  text-align: center;
+
+  @media (max-width: 1450px) {
+    width: 100%;
+    justify-content: center;
+    padding: 8px 16px;
+  }
 `;
 
 export const RatingCircle = styled.div<RatingCircleProps>`
@@ -162,11 +454,11 @@ export const RatingCircle = styled.div<RatingCircleProps>`
 
 	span .percentage {
 		font-size: 12px;
-		color: ${({theme}) => theme.text};
+		color: ${({ theme }) => theme.text};
     transform: translateY(7px);
 	}
 
-  @media (max-width: 900px) {
+  @media (max-width: 1450px) {
     width: 70px;
     height: 70px;
     &::after {
@@ -176,135 +468,13 @@ export const RatingCircle = styled.div<RatingCircleProps>`
   }
 `;
 
-export const Info1 = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  width: fit-content;
-  height: 100%;
-
-  & > ${RatingCircle} {
-    min-width: 76px;
-    min-height: 76px;
-  }
-
-  @media (max-width: 900px) {
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    transition: all ease 0.2s;
-  }
-`;
-
-export const Info2 = styled.div`
-  display: flex;
-  gap: 16px;
-  padding: 16px;
-  width: 60%;
-  height: 100%;
-  flex-direction: column;
-
-  @media (max-width: 1224px) {
-    transition: all ease 0.2s;
-    width: 100%;
-
-    div {
-      gap: 4px;
-    }
-  }
-
-  @media (max-width: 900px) {
-    width: 100%;
-    padding: 0px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: all ease 0.2s;
-  }
-`;
-
-export const Info3 = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 30%;
-  gap: 16px;
-  height: 100%;
-
-  div {
-    display: flex;
-    gap: 16px;
-  }
-
-  @media (max-width: 1224px) {
-    width: 100%;
-    height: fit-content;
-
-    div {
-      flex-wrap: wrap;
-    }
-  }
-
-  @media (max-width: 900px) {
-    width: 100%;
-    padding: 0px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: all ease 0.2s;
-
-    div {
-      display: flex;
-      flex-wrap: nowrap;
-      width: 100%;
-      gap: 16px;
-    }
-  }
-
-  @media (max-width: 540px) {
-    width: 100%;
-    height: fit-content;
-
-    div {
-      flex-wrap: wrap;
-    }
-  }
-
-`;
-
-export const ContainerInfo = styled.div`
-  width: auto;
-  min-width: 150px;
-  max-width: 100%;
-  height: fit-content;
-  border-radius: 4px;
-  padding: 16px;
-  background-color: ${({ theme }) => theme.colors.mauve[3]}BF;
-  backdrop-filter: blur(4px);
-  gap: 8px;
-
-  line-height: 100%;
-  letter-spacing: 0px;
-  font-family: "Montserrat", sans-serif;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  transition: all ease 0.2s;
-
-  @media (max-width: 900px) {
-    width: 100%;
-  }
-`;
-
-export const TitleText = styled.span`
+export const InfoTitle = styled.span`
   font-weight: 700;
   font-size: 12px;
   color: ${({ theme }) => theme.colors.mauve[11]};
 `;
 
-export const InfoDescriptionText = styled.span`
+export const InfoDescription = styled.span`
   font-weight: 600;
   font-size: 14px;
   color: ${({ theme }) => theme.colors.mauve[12]};
@@ -317,24 +487,26 @@ export const InfoDescriptionText = styled.span`
   }
 `;
 
-export const Genres = styled.div`
+export const GenresContainer = styled.div`
   display: flex;
   width: fit-content;
   gap: 8px;
+  flex-wrap: wrap;
 
-  @media (max-width: 900px) {
+  @media (max-width: 1450px) {
     width: 100%;
+    justify-content: center;
     transition: all ease 0.2s;
   }
 `;
 
-export const GenreInfo = styled.div`
+export const GenreTag = styled.div`
   display: flex;
   width: fit-content;
   height: fit-content;
   border-radius: 2px;
   padding: 8px;
-  background: ${({theme}) => theme.colors.purpleAlpha[3]};
+  background: ${({ theme }) => theme.colors.purpleAlpha[3]};
 
   span {
     padding: 4px 10px;
@@ -343,71 +515,65 @@ export const GenreInfo = styled.div`
     cursor: default;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1450px) {
     padding: 16px;
     transition: all ease 0.2s;
   }
 `;
 
-export const SectionContent = styled.div`
-  display: flex;
-  width: 100%;
-
-  @media (max-width: 900px) {
-    display: block;
-    transition: all ease 0.2s;
-  }
-`;
-
-export const Poster = styled.img`
-  width: 374px;
-  height: 542px;
-  border-radius: 4px;
-  box-shadow: 0px 1px 5px 0px 12px #00000020;
-  object-fit: cover;
-
-  @media (max-width: 900px) {
-    transition: all ease 0.2s;
-    width: 100%;
-  }
-`;
-
-export const Title = styled.h1`
+export const MovieTitle = styled.h1`
   font-size: 2rem;
   margin-bottom: 0;
 
-  @media (max-width: 540px) {
-    display: flex;
-    justify-content: center;
+  @media (max-width: 1450px) {
+    text-align: center;
+  }
+
+  @media (max-width: 748px) {
+    font-size: 1.75rem;
   }
 `;
 
-export const Subtitle = styled.h2`
+export const MovieSubtitle = styled.h2`
   font-weight: 400;
   font-size: 1.2rem;
   color: #ccc;
   margin-top: 0;
 
-  @media (max-width: 540px) {
-    display: flex;
-    justify-content: center;
+  @media (max-width: 1450px) {
+    text-align: center;
+  }
+
+  @media (max-width: 748px) {
+    font-size: 1.1rem;
   }
 `;
 
-export const ButtonsRow = styled.div`
+export const ActionsButtonRow = styled.div`
   display: flex;
   gap: 12px;
   margin-top: 12px;
 
-  @media (max-width: 540px) {
-    display: flex;
+  @media (max-width: 1450px) {
     justify-content: center;
+  }
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
+
+  @media (max-width: 748px) {
+    gap: 8px;
+    flex-wrap: wrap;
   }
 `;
 
 export const TrailerWrapper = styled.div`
   width: 100%;
   padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 
   iframe, video {
     width: 100%;
@@ -422,9 +588,33 @@ export const TrailerWrapper = styled.div`
     line-height: 100%;
     letter-spacing: 0px;
   }
+
+  @media (max-width: 1450px) {
+    padding: 16px;
+    text-align: center;
+
+    iframe, video {
+      height: 300px;
+    }
+
+    span {
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 748px) {
+    padding: 12px;
+
+    iframe, video {
+      height: 200px;
+    }
+
+    span {
+      font-size: 18px;
+    }
+  }
 `;
 
-// Modal de Confirmação de Exclusão
 export const DeleteContainer = styled.div`
   width: 100%;
   height: 100%;

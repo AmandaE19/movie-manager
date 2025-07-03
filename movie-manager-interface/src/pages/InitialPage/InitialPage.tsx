@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import AddMovieDrawer from "../../components/MovieDrawer/MovieDrawer";
 import type { Movie } from "../../types/global";
 import FilterModal from "../../components/FilterModal/FilterModal";
+import { Loading } from "../../components/Loading/Loading";
+import { useLoading } from "../../hooks/useLoading";
 
 const MovieList = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -24,21 +26,24 @@ const MovieList = () => {
   const itemsPerPage = 10;
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { isLoading, startLoading, stopLoading } = useLoading();
 
   const navigate = useNavigate();
 
+  // Carrega filmes inicialmente sem loading (será instantâneo ou muito rápido)
   useEffect(() => {
     const fetchMovies = async () => {
       try {
         const movies = await getAllMovies();
-        setMovies(movies);
-      } catch (err) {
+        setMovies(movies || []);
+      } catch {
         alert("Erro ao carregar filmes. Tente novamente mais tarde.");
       }
     };
     fetchMovies();
   }, []);
 
+  // Filtro de busca por nome é instantâneo (sem loading)
   const filteredMovies = movies.filter((movie) => {
     const matchesSearch = movie.title.toLowerCase().includes(searchTerm.toLowerCase());
 
@@ -73,13 +78,22 @@ const MovieList = () => {
     goToPage(currentPage - 1);
   };
 
-  const handleFilter = () => {
-    setCurrentPage(1);
-    setIsFilterOpen(false);
+  // Aplicação de filtros com loading (simula processamento)
+  const handleFilter = async () => {
+    try {
+      startLoading();
+      // Simula delay para aplicação dos filtros
+      await new Promise(resolve => setTimeout(resolve, 800));
+      setCurrentPage(1);
+      setIsFilterOpen(false);
+    } finally {
+      stopLoading();
+    }
   }
 
   return (
     <Layout>
+      <Loading isVisible={isLoading} />
       <AddMovieDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
       {isFilterOpen &&
         <FilterModal
