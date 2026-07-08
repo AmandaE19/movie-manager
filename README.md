@@ -1,5 +1,5 @@
 
-# Cubos Movie API
+# Movie API
 
 Este projeto é uma API para gerenciar filmes, incluindo funcionalidades para cadastro, atualização, listagem e envio de notificações por e-mail.
 
